@@ -33,19 +33,20 @@ const Onboarding = ({ navigation }) => {
         <Block flex space="around" style={{ zIndex: 2 }}>
           <Block>
             <Block>
-              <Text color="rgb(246,155,63)" size={40}>
-                Health Clinic
+              <Text color={materialTheme.COLORS.PRIMARY} size={40}>
+                Glorifiers savings & loan Mobile
               </Text>
             </Block>
             <Text size={16} color="#fff">
-              ...home to household and other general utility items
+              ...Payments. Bills. Instant Loans. Smart Investments. Credit
+              Reports
             </Text>
           </Block>
           <Block center>
             <Button
               shadowless
               style={styles.button}
-              color={materialTheme.COLORS.BUTTON_COLOR}
+              color={materialTheme.COLORS.PRIMARY}
               onPress={() => navigation.navigate("SignIn")}
             >
               Launch App

@@ -129,7 +129,7 @@ export default Register = ({
                     size={24}
                     color={materialTheme.COLORS.PRIMARY}
                   >
-                    Health Clinic
+                    glorifiers savings & loan Mobile
                   </Text>
                 </Block>
                 <Block flex={1} middle space="between">

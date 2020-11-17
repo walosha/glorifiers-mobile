@@ -39,13 +39,13 @@ function CustomDrawerContent({
         >
           <Block style={styles.profile}>
             <Text h5 color={materialTheme.COLORS.PRIMARY}>
-              Health Clinic
+              glorifiers savings & loan
             </Text>
           </Block>
         </TouchableWithoutFeedback>
         <Block row space="between">
           <Text size={16} color={materialTheme.COLORS.WARNING}>
-            Home of Premium Goods
+            Unlocking the power of money for all people
           </Text>
           <Icon
             color={materialTheme.COLORS.MUTED}

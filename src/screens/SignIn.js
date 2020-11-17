@@ -80,7 +80,7 @@ const SignInScreen = ({
                       iconColor={theme.COLORS.WHITE}
                       iconSize={theme.SIZES.BASE * 1.625}
                       color={materialTheme.COLORS.TWITTER}
-                      style={[styles.social, styles.shadow]}
+                      style={[styles.social]}
                     />
                     <GaButton
                       round
@@ -116,7 +116,7 @@ const SignInScreen = ({
                     size={24}
                     color={materialTheme.COLORS.PRIMARY}
                   >
-                    Health Clinic
+                    glorifiers savings & loan Mobile
                   </Text>
                 </Block>
                 <Block flex={1} middle space="around">
