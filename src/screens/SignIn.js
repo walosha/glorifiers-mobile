@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signInUser, resetSignScreen } from "../redux/actions";
 import { Button, Icon, Input } from "../components/";
 import { images, materialTheme } from "../constants";
@@ -31,12 +31,15 @@ const SignInScreen = ({
   const [password, setPassword] = useState("");
   const secondTextInput = useRef(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // resetSignScreen();
   }, []);
 
   function onButnPress() {
-    signInUser({ username, password }, navigation);
+    dispatch({ type: "FAKE_LOGIN" });
+    // signInUser({ username, password }, navigation);
   }
 
   return (
@@ -304,6 +307,4 @@ const mapStateToProps = ({ signInScreen }) => ({
   isLoading: signInScreen.isLoading,
 });
 
-export default connect(mapStateToProps, { signInUser, resetSignScreen })(
-  SignInScreen
-);
+export default SignInScreen;

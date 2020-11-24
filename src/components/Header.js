@@ -10,8 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
 import Icon from "./Icon";
-import { searchItem } from "../redux/actions";
-import materialTheme from "../constants/Theme";
+import { materialTheme } from "../constants";
 
 const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
@@ -30,7 +29,6 @@ const BasketButton = ({ isWhite, style, navigation }) => {
         name="shopping-cart"
         color={theme.COLORS[isWhite ? "WHITE" : "WARNING"]}
       />
-      hello
     </TouchableOpacity>
   );
 };
@@ -54,8 +52,6 @@ const getCurrentDate = () => {
   var month = new Date().getMonth();
   var year = new Date().getFullYear();
 
-  //Alert.alert(date + '-' + month + '-' + year);
-  // You can turn it in to your desired format
   return date + "-" + monthArray[month] + "-" + year; //format: dd-mm-yyyy;
 };
 const SearchButton = ({ isWhite, style, navigation }) => (
@@ -191,7 +187,6 @@ export default class Header extends React.Component {
     return (
       <Block style={headerStyles}>
         <NavBar
-          //back={back}
           title={title}
           style={styles.navbar}
           transparent={transparent}
@@ -205,7 +200,7 @@ export default class Header extends React.Component {
           leftIconColor={
             white ? theme.COLORS.WHITE : materialTheme.COLORS.PRIMARY
           }
-          titleStyle={[styles.title, { color: materialTheme.COLORS.PRIMARY }]}
+          titleStyle={[styles.title]}
           onLeftPress={this.handleLeftPress}
         />
         {this.renderHeader()}
@@ -213,8 +208,6 @@ export default class Header extends React.Component {
     );
   }
 }
-
-// export default connect(null, { searchItem })(withNavigation(Header));
 
 const styles = StyleSheet.create({
   button: {
@@ -225,12 +218,14 @@ const styles = StyleSheet.create({
     width: "100%",
     fontSize: 16,
     fontWeight: "bold",
+    color: "#fff",
   },
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 2 : theme.SIZES.BASE,
     zIndex: 5,
+    backgroundColor: materialTheme.COLORS.PRIMARY,
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -241,7 +236,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   notify: {
-    backgroundColor: materialTheme.COLORS.PRIMARY,
+    backgroundColor: theme.COLORS.PRIMARY,
     borderRadius: 9,
     height: theme.SIZES.BASE / 1,
     width: theme.SIZES.BASE / 1,

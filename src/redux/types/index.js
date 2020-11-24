@@ -4,6 +4,7 @@ export {
   LOGIN_SAVE,
   LOGIN_USER_FAILED,
   RESET_SIGNIN_SCREEN,
+  FAKE_LOGIN,
 } from "./SiginInTypes";
 export {
   REGISTER_USER_SUCCESSSFUL,

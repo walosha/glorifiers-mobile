@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { connect } from "react-redux";
 import Icon from "./Icon";
@@ -9,79 +9,113 @@ import { LogOutUser } from "../redux/actions";
 const DrawerItem = ({ title, focused, navigation, LogOutUser }) => {
   const renderIcon = () => {
     switch (title) {
-      case "Shop By Category":
+      case "Home":
         return (
-          <Icon
-            size={16}
-            name="shop"
-            family="GalioExtra"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="iconfontdesktop"
+              family="AntDesign"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
-      case "Account":
+      case "Notifications":
         return (
-          <Icon
-            size={16}
-            name="circle-10"
-            family="GalioExtra"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="bell"
+              family="Entypo"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
       case "Settings":
         return (
-          <Icon
-            size={16}
-            name="gears"
-            family="font-awesome"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="setting"
+              family="AntDesign"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
 
-      case "Shopping Cart":
+      case "Contact Support":
         return (
-          <Icon
-            size={16}
-            name="shopping-cart"
-            family="Entypo"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="call"
+              family="Ionicons"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
 
-      case "Favourite":
+      case "My Ticket":
         return (
-          <Icon
-            size={16}
-            name="heart"
-            family="Entypo"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="wechat"
+              family="AntDesign"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
-      case "Order History":
+      case "Get Help":
         return (
-          <Icon
-            size={16}
-            name="history"
-            family="MaterialIcons"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="mail"
+              family="AntDesign"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
-      case "Contact Us":
-        return (
-          <Icon
-            size={16}
-            name="contact-phone"
-            family="MaterialIcons"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
-        );
+
       case "Log Out":
         return (
-          <Icon
-            size={16}
-            name="ios-log-out"
-            family="ionicon"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
+          <View style={styles.iconContainer}>
+            <Icon
+              size={16}
+              name="ios-log-out"
+              family="ionicon"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
         );
 
       default:
@@ -91,7 +125,7 @@ const DrawerItem = ({ title, focused, navigation, LogOutUser }) => {
 
   return (
     <TouchableOpacity
-      style={{ height: 55 }}
+      style={title === "Log Out" ? { height: 400 } : { height: 55 }}
       onPress={() => {
         title === "Log Out" && LogOutUser();
         navigation.navigate(title.split(" ").join(""));
@@ -109,7 +143,10 @@ const DrawerItem = ({ title, focused, navigation, LogOutUser }) => {
           {renderIcon()}
         </Block>
         <Block row center flex={0.9}>
-          <Text size={18} color={focused ? "white" : "black"}>
+          <Text
+            size={18}
+            color={focused ? materialTheme.COLORS.PRIMARY : "#FFF"}
+          >
             {title}
           </Text>
         </Block>
@@ -126,6 +163,14 @@ const styles = StyleSheet.create({
   activeStyle: {
     backgroundColor: materialTheme.COLORS.ACTIVE,
     borderRadius: 4,
+  },
+  iconContainer: {
+    borderRadius: 50,
+    height: 35,
+    width: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,

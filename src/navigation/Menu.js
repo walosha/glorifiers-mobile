@@ -10,6 +10,16 @@ import { useSafeArea } from "react-native-safe-area-context";
 import { Icon, Drawer as DrawerCustomItem } from "../components/";
 import { materialTheme } from "../constants/";
 
+const screens = [
+  "Home",
+  "Notifications",
+  "Settings",
+  "Contact Support",
+  "My Ticket",
+  "Get Help",
+  "Log Out",
+];
+
 function CustomDrawerContent({
   drawerPosition,
   navigation,
@@ -19,15 +29,7 @@ function CustomDrawerContent({
   ...rest
 }) {
   const insets = useSafeArea();
-  const screens = [
-    "Shop By Category",
-    "Shopping Cart",
-    "Favourite",
-    "Order History",
-    "Contact Us",
-    "Account",
-    "Log Out",
-  ];
+
   return (
     <Block
       style={styles.container}
@@ -39,23 +41,28 @@ function CustomDrawerContent({
         >
           <Block style={styles.profile}>
             <Text h5 color={materialTheme.COLORS.PRIMARY}>
-              glorifiers savings & loan
+              Seun Bankole Oyesanya
             </Text>
           </Block>
         </TouchableWithoutFeedback>
         <Block row space="between">
           <Text size={16} color={materialTheme.COLORS.WARNING}>
-            Unlocking the power of money for all people
+            Account Number: 0095432012
           </Text>
           <Icon
-            color={materialTheme.COLORS.MUTED}
-            name="local-grocery-store"
+            color={materialTheme.COLORS.PRIMARY}
+            name="star"
             family="MaterialIcons"
             size={14}
           />
         </Block>
+        <Block row space="between">
+          <Text size={16} color={materialTheme.COLORS.WARNING}>
+            App Version: 1.0.1
+          </Text>
+        </Block>
       </Block>
-      <Block flex style={{ paddingLeft: 7, paddingRight: 14 }}>
+      <Block flex style={{ marginTop: 17, paddingLeft: 7, paddingRight: 14 }}>
         <ScrollView
           contentContainerStyle={[
             {
@@ -72,7 +79,7 @@ function CustomDrawerContent({
                 title={item}
                 key={index}
                 navigation={navigation}
-                focused={state.index === index ? true : false}
+                focused={state.index === index}
               />
             );
           })}

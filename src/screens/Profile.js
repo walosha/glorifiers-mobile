@@ -16,20 +16,6 @@ const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = ({ navigation }) => {
-  const {
-    cartLength,
-    wishLength,
-    ViewedItems,
-    userDetails: { user_display_name, user_email, user_nicename },
-  } = useSelector(
-    ({ signInScreen, shoppingCart, wishlistScreen, ViewedItems }) => ({
-      userDetails: signInScreen,
-      cartLength: shoppingCart.cart.length,
-      wishLength: wishlistScreen.wishlist.length,
-      ViewedItems: ViewedItems.viewed,
-    })
-  );
-
   return (
     <Block flex style={styles.profile}>
       <Block flex middle>
@@ -41,7 +27,7 @@ const Profile = ({ navigation }) => {
             marginBottom: 8,
           }}
         >
-          email: {user_email}
+          email:
         </Text>
         <Text
           bold
@@ -51,7 +37,7 @@ const Profile = ({ navigation }) => {
             marginBottom: 8,
           }}
         >
-          Name: {user_display_name}
+          Name:
         </Text>
       </Block>
       <Block flex style={styles.options}>
@@ -66,7 +52,7 @@ const Profile = ({ navigation }) => {
                   marginBottom: 8,
                 }}
               >
-                {cartLength}
+                8
               </Text>
               <Text
                 style={{
@@ -87,7 +73,7 @@ const Profile = ({ navigation }) => {
                   marginBottom: 8,
                 }}
               >
-                {wishLength}
+                5
               </Text>
               <Text
                 style={{
@@ -108,7 +94,7 @@ const Profile = ({ navigation }) => {
                   marginBottom: 8,
                 }}
               >
-                {ViewedItems.length}
+                2
               </Text>
               <Text
                 style={{
@@ -127,28 +113,12 @@ const Profile = ({ navigation }) => {
             style={{ paddingVertical: 16, alignItems: "baseline" }}
           >
             <Text size={16}>Recently Items</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-              <Text size={12} color={theme.COLORS.PRIMARY}></Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Home")}
+            ></TouchableOpacity>
           </Block>
           <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-            <Block row space="between" style={{ flexWrap: "wrap" }}>
-              {ViewedItems.map((product, imgIndex) => (
-                <TouchableOpacity
-                  key={imgIndex}
-                  onPress={() =>
-                    navigation.navigate("ProductDescription", product)
-                  }
-                >
-                  <Image
-                    source={{ uri: product.image1 }}
-                    key={`viewed-${product + imgIndex}`}
-                    resizeMode="cover"
-                    style={styles.thumb}
-                  />
-                </TouchableOpacity>
-              ))}
-            </Block>
+            <Block row space="between" style={{ flexWrap: "wrap" }}></Block>
           </Block>
         </ScrollView>
       </Block>

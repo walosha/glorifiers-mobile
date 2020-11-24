@@ -5,6 +5,7 @@ import {
   LOGIN_SAVE,
   LOGIN_USER_FAILED,
   RESET_SIGNIN_SCREEN,
+  FAKE_LOGIN,
 } from "../types";
 import { State } from "react-native-gesture-handler";
 
@@ -22,6 +23,11 @@ export const signInReducer = (state = initialValue, action) => {
   switch (action.type) {
     case RESET_SIGNIN_SCREEN:
       return (state = initialValue);
+    case FAKE_LOGIN:
+      return {
+        ...initialValue,
+        token: "token",
+      };
     case LOGIN_SAVE:
       return {
         ...initialValue,

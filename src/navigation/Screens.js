@@ -10,6 +10,11 @@ import SignInScreen from "../screens/SignIn";
 import OnboardingScreen from "../screens/Onboarding";
 import ProfileScreen from "../screens/Profile";
 import CustomDrawerContent from "./Menu";
+import ContactSupportScreen from "../screens/ContactSupport";
+import NotificationsScreen from "../screens/Notifications";
+import SettingsScreen from "../screens/Settings";
+import GetHelpScreen from "../screens/GetHelp";
+import TicketScreen from "../screens/Ticket";
 import { Icon, Header } from "../components";
 import { materialTheme } from "../constants/";
 const { width } = Dimensions.get("screen");
@@ -18,23 +23,116 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-function ProfileStack(props) {
+function TicketStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
+    <Stack.Navigator initialRouteName="Ticket" mode="card" headerMode="screen">
       <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="Ticket"
+        component={TicketScreen}
         options={{
           header: ({ navigation, scene }) => (
             <Header
               white
-              transparent
-              title=""
-              scene={scene}
               navigation={navigation}
+              title="Ticket"
+              scene={scene}
             />
           ),
-          headerTransparent: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function SettingsStack(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Settings"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Notifications"
+        component={SettingsScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              white
+              navigation={navigation}
+              title="Settings"
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function GetHelpStack(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Settings"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Notifications"
+        component={GetHelpScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              white
+              navigation={navigation}
+              title="Get Help"
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function NotificationsStack(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Notifications"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              white
+              navigation={navigation}
+              title="Notifications"
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ContactSupportStack(props) {
+  return (
+    <Stack.Navigator initialRouteName="Support" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Support"
+        component={ContactSupportScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              white
+              navigation={navigation}
+              title="Contact Supports"
+              scene={scene}
+            />
+          ),
         }}
       />
     </Stack.Navigator>
@@ -59,6 +157,22 @@ function RegisterStack(props) {
   );
 }
 
+function HomeStack(props) {
+  return (
+    <Stack.Navigator initialRouteName="Home" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header white navigation={navigation} title="Cart" scene={scene} />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function SignInStack(props) {
   return (
     <Stack.Navigator initialRouteName="SignIn" mode="card" headerMode="screen">
@@ -67,43 +181,6 @@ function SignInStack(props) {
         component={SignInScreen}
         options={{
           header: () => null,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function HomeStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="ShopByCategory"
-        component={HomeScreen}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              tabs
-              title="Cadacstores"
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="Account"
-        component={ProfileStack}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              back
-              transparent
-              title="Account"
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -150,7 +227,7 @@ function AppStack(props) {
       style={{ flex: 1 }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       drawerStyle={{
-        backgroundColor: "white",
+        backgroundColor: materialTheme.COLORS.PRIMARY,
         width: width * 0.8,
       }}
       drawerContentOptions={{
@@ -174,20 +251,12 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen
-        name="Home"
-        component={HomeStack}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="shop"
-              family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          ),
-        }}
-      />
+      <Drawer.Screen name="Home" component={HomeStack} />
+      <Drawer.Screen name="Notifications" component={NotificationsStack} />
+      <Drawer.Screen name="Settings" component={SettingsStack} />
+      <Drawer.Screen name="Support" component={ContactSupportStack} />
+      <Drawer.Screen name="MyTicket" component={TicketStack} />
+      <Drawer.Screen name="GetHelp" component={GetHelpStack} />
     </Drawer.Navigator>
   );
 }
@@ -216,8 +285,7 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
         </Fragment>
       ) : (
         <Fragment>
-          {/* <Stack.Screen name="Tab" component={MyTabs} /> */}
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Tab" component={MyTabs} />
         </Fragment>
       )}
     </Stack.Navigator>
