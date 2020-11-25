@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { useDispatch } from "react-redux";
-import { signInUser, resetSignScreen } from "../redux/actions";
+import { signInUser, resetSignScreen } from "../store/actions";
 import { Button, Icon, Input } from "../components/";
 import { images, materialTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");

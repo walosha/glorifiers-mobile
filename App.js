@@ -8,7 +8,7 @@ import { Root } from "native-base";
 import { Provider } from "react-redux";
 import { Block, GalioProvider } from "galio-framework";
 import { images, materialTheme } from "./src/constants";
-import { store, persistor } from "./src/redux/store";
+import { store, persistor } from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./src/navigation/Screens";
 

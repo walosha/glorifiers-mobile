@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { connect } from "react-redux";
-import HomeScreen from "../screens/Home";
+import HomeScreen from "../screens/Home/Home";
 import RegisterScreen from "../screens/Register";
 import SignInScreen from "../screens/SignIn";
 import OnboardingScreen from "../screens/Onboarding";
@@ -120,9 +120,13 @@ function NotificationsStack(props) {
 
 function ContactSupportStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Support" mode="card" headerMode="screen">
+    <Stack.Navigator
+      initialRouteName="ContactSupport"
+      mode="card"
+      headerMode="screen"
+    >
       <Stack.Screen
-        name="Support"
+        name="ContactSupport"
         component={ContactSupportScreen}
         options={{
           header: ({ navigation, scene }) => (
@@ -165,7 +169,7 @@ function HomeStack(props) {
         component={HomeScreen}
         options={{
           header: ({ navigation, scene }) => (
-            <Header white navigation={navigation} title="Cart" scene={scene} />
+            <Header white tabs navigation={navigation} title="" scene={scene} />
           ),
         }}
       />
@@ -254,7 +258,7 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Notifications" component={NotificationsStack} />
       <Drawer.Screen name="Settings" component={SettingsStack} />
-      <Drawer.Screen name="Support" component={ContactSupportStack} />
+      <Drawer.Screen name="ContactSupport" component={ContactSupportStack} />
       <Drawer.Screen name="MyTicket" component={TicketStack} />
       <Drawer.Screen name="GetHelp" component={GetHelpStack} />
     </Drawer.Navigator>

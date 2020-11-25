@@ -17,22 +17,6 @@ const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BasketButton = ({ isWhite, style, navigation }) => {
-  return (
-    <TouchableOpacity
-      style={[styles.button, style]}
-      onPress={() => navigation.navigate("ShoppingCart")}
-    >
-      <Icon
-        family="Entypo"
-        size={16}
-        name="shopping-cart"
-        color={theme.COLORS[isWhite ? "WHITE" : "WARNING"]}
-      />
-    </TouchableOpacity>
-  );
-};
-
 const getCurrentDate = () => {
   const monthArray = [
     "Jan",
@@ -55,22 +39,33 @@ const getCurrentDate = () => {
   return date + "-" + monthArray[month] + "-" + year; //format: dd-mm-yyyy;
 };
 const SearchButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate("search")}
-  >
+  <TouchableOpacity style={[styles.button, style]} onPress={() => {}}>
     <Icon
-      size={16}
-      family="entypo"
-      name="magnifying-glass"
-      color={theme.COLORS[isWhite ? "WHITE" : "WARNING"]}
+      size={24}
+      family="Feather"
+      name="wifi-off"
+      color={
+        theme.COLORS[
+          isWhite
+            ? materialTheme.COLORS.SWITCH_ON
+            : materialTheme.COLORS.SWITCH_OFF
+        ]
+      }
     />
   </TouchableOpacity>
 );
 
+const ReloadButton = ({ isWhite, style, navigation }) => (
+  <TouchableOpacity style={[styles.button, style]} onPress={() => {}}>
+    <Icon
+      size={24}
+      family="AntDesign"
+      name="reload1"
+      color={theme.COLORS[isWhite ? "WHITE" : "WARNING"]}
+    />
+  </TouchableOpacity>
+);
 export default class Header extends React.Component {
-  titleArr = ["search"];
-
   handleLeftPress = () => {
     const { back, navigation } = this.props;
     return back ? navigation.goBack() : navigation.openDrawer();
@@ -79,28 +74,13 @@ export default class Header extends React.Component {
   renderRight = () => {
     const { white, title, navigation } = this.props;
 
-    if (title === "Cart")
-      return (
-        <SearchButton key="chat-home" navigation={navigation} isWhite={white} />
-      );
-    if (this.titleArr.includes(title)) {
+    if (title === "")
       return [
-        <BasketButton
-          key="basket-title"
-          navigation={navigation}
-          isWhite={white}
-        />,
+        <SearchButton navigation={navigation} isWhite={white} />,
+        <ReloadButton navigation={navigation} isWhite={white} />,
       ];
-    }
 
-    return [
-      <SearchButton key="chat-home" navigation={navigation} isWhite={white} />,
-      <BasketButton
-        key="basket-home"
-        navigation={navigation}
-        isWhite={white}
-      ></BasketButton>,
-    ];
+    return null;
   };
 
   renderSearch = () => {
@@ -124,38 +104,38 @@ export default class Header extends React.Component {
     );
   };
 
-  renderTabs = () => {
+  renderButtons = () => {
     const { navigation, tabTitleLeft } = this.props;
 
     return (
-      <Block row style={styles.tabs}>
+      <Block style={styles.tabs}>
         <Button
           shadowless
-          style={[styles.tab, styles.divider]}
+          shadowColor="#000"
+          style={[styles.tab]}
           onPress={() => {}}
         >
-          <Block row middle>
-            <Icon
-              name="filter"
-              family="feather"
-              style={{ paddingRight: 8, color: materialTheme.COLORS.PRIMARY }}
-            />
-            <Text size={16} style={styles.tabTitle}>
-              {tabTitleLeft || "Filter"}
-            </Text>
-          </Block>
+          FUND PURSE
         </Button>
-        <Button
-          shadowless
-          style={styles.tab}
-          onPress={() => navigation.navigate("Account")}
+        <Button shadowColor="#000" style={styles.tab} onPress={() => []}>
+          TRANSFER TO ACCOUNT
+        </Button>
+      </Block>
+    );
+  };
+
+  renderBalance = () => {
+    const { navigation, tabTitleLeft } = this.props;
+
+    return (
+      <Block center>
+        <Text
+          size={37}
+          style={{ fontFamily: "montserrat-regular" }}
+          color="#fff"
         >
-          <Block row middle>
-            <Text size={16} style={styles.tabTitle}>
-              {getCurrentDate()}
-            </Text>
-          </Block>
-        </Button>
+          =N= 45,252.25
+        </Text>
       </Block>
     );
   };
@@ -164,9 +144,17 @@ export default class Header extends React.Component {
     const { search, tabs } = this.props;
     if (search || tabs) {
       return (
-        <Block center>
+        <Block
+          style={{
+            backgroundColor: materialTheme.COLORS.PRIMARY,
+            paddingVertical: 15,
+            paddingHorizontal: 15,
+          }}
+          center
+        >
           {search ? this.renderSearch() : null}
-          {tabs ? this.renderTabs() : null}
+          {this.renderBalance()}
+          {tabs ? this.renderButtons() : null}
         </Block>
       );
     }
@@ -175,7 +163,6 @@ export default class Header extends React.Component {
 
   render() {
     const { back, title, white, transparent, navigation } = this.props;
-    // const { routeName } = navigation.state;
     const noShadow = ["Search", "Categories", "Deals", "Profile"].includes(
       title
     );
@@ -262,18 +249,22 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     marginTop: 10,
     elevation: 4,
+    flexDirection: "row",
+    padding: 12,
   },
   tab: {
-    backgroundColor: theme.COLORS.TRANSPARENT,
+    backgroundColor: materialTheme.COLORS.LABEL,
     width: width * 0.5,
-    borderRadius: 0,
+    borderRadius: 10,
     borderWidth: 0,
-    height: 24,
+    height: 58,
     elevation: 0,
+    fontFamily: "montserrat-regular",
+    marginRight: 4,
   },
   tabTitle: {
     lineHeight: 19,
     fontWeight: "300",
-    color: materialTheme.COLORS.PRIMARY,
+    color: "#FFF",
   },
 });

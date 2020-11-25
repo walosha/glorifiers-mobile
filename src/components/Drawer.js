@@ -1,12 +1,15 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Dimensions } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import Icon from "./Icon";
 import materialTheme from "../constants/Theme";
-import { LogOutUser } from "../redux/actions";
+import { LOGOUT_USER } from "../store/types";
 
-const DrawerItem = ({ title, focused, navigation, LogOutUser }) => {
+const { height } = Dimensions.get("screen");
+
+const DrawerItem = ({ title, focused, navigation }) => {
+  const dispatch = useDispatch();
   const renderIcon = () => {
     switch (title) {
       case "Home":
@@ -125,9 +128,9 @@ const DrawerItem = ({ title, focused, navigation, LogOutUser }) => {
 
   return (
     <TouchableOpacity
-      style={title === "Log Out" ? { height: 400 } : { height: 55 }}
+      style={title === "Log Out" ? { height: height * 0.4 } : { height: 55 }}
       onPress={() => {
-        title === "Log Out" && LogOutUser();
+        title === "Log Out" && dispatch({ type: LOGOUT_USER });
         navigation.navigate(title.split(" ").join(""));
       }}
     >

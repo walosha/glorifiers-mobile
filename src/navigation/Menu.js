@@ -62,7 +62,7 @@ function CustomDrawerContent({
           </Text>
         </Block>
       </Block>
-      <Block flex style={{ marginTop: 17, paddingLeft: 7, paddingRight: 14 }}>
+      <Block flex style={{ marginTop: 7, paddingLeft: 7, paddingRight: 14 }}>
         <ScrollView
           contentContainerStyle={[
             {
