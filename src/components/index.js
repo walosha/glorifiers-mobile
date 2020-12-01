@@ -6,5 +6,15 @@ import Drawer from "./Drawer";
 import Card from "./Card";
 
 import CircleProgressChart from "./CircleProgressChart";
+import Toast from "./Toast";
 
-export { Header, Icon, Input, Button, Drawer, Card, CircleProgressChart };
+export {
+  Header,
+  Icon,
+  Input,
+  Button,
+  Drawer,
+  Card,
+  Toast,
+  CircleProgressChart,
+};

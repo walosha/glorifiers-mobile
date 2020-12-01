@@ -4,7 +4,9 @@ import {
   REGISTER_USER_FAILED,
   PASSWORD_NOT_SAME,
   RESET_REGISTER_SCREEN,
+  LOGIN_USER_FAILED,
 } from "../types";
+import { glorifiers } from "../../services/glorifiers";
 
 const resetRegisterScreen = () => (dispatch) => {
   dispatch({ type: RESET_REGISTER_SCREEN });
@@ -18,13 +20,28 @@ const userPasswordNotSame = () => (dispatch) => {
   });
 };
 
-const registerUser = ({ username, email, password }, navigation) => async (
-  dispatch
+const registerUser = async (
+  { firstName, lastName, phoneNumber, password, email },
+  dispatch,
+  navigation
 ) => {
-  dispatch({ type: REGISTER_SAVE });
+  dispatch({ type: RESET_REGISTER_SCREEN });
+  try {
+    console.log({ firstName, lastName, phoneNumber, email, password });
+    const { data } = await glorifiers.post("/auth/create-user", {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      password,
+    });
 
-  dispatch({ type: REGISTER_USER_SUCCESSSFUL });
-  navigation.navigate("SignIn");
+    dispatch({ type: REGISTER_USER_SUCCESSSFUL });
+    navigation.navigate("SignIn");
+  } catch ({ response: { data } }) {
+    console.log(data);
+    dispatch({ type: LOGIN_USER_FAILED, payload: data.error });
+  }
 };
 
 export { registerUser, userPasswordNotSame, resetRegisterScreen };

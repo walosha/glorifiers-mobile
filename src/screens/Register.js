@@ -8,14 +8,10 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-// import {
-//   registerUser,
-//   userPasswordNotSame,
-//   resetRegisterScreen,
-// } from "../redux/actions";
-import { Button, Icon, Input } from "../components/";
+import { registerUser, userPasswordNotSame } from "../store/actions";
+import { Button, Icon, Input, Toast } from "../components/";
 import { images, materialTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
 
@@ -25,31 +21,30 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-export default Register = ({
-  resetRegisterScreen,
-  navigation,
-  error,
-  isLoading,
-  registerUser,
-  userPasswordNotSame,
-}) => {
+export default Register = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [isToastVisible, setToast] = useState(false);
 
-  useEffect(() => {
-    // resetRegisterScreen();
-  }, []);
+  const dispatch = useDispatch();
+
+  const { isLoading, error } = useSelector(({ signInScreen }) => signInScreen);
+
+  useEffect(() => {}, []);
 
   function onButnPress() {
     if (confirmPassword !== password) {
-      userPasswordNotSame();
-      return;
+      return setToast(true);
     }
 
-    registerUser({ username, password, email }, navigation);
+    registerUser(
+      { firstName, lastName, phoneNumber, password, email },
+      dispatch
+    );
   }
 
   return (
@@ -220,6 +215,24 @@ export default Register = ({
                             }
                           />
                         </Block>
+                        <Block width={width * 0.8}>
+                          <Input
+                            viewPass
+                            password
+                            borderless
+                            placeholder="Confirm Password"
+                            onChangeText={(text) => setConfirmPassword(text)}
+                            iconContent={
+                              <Icon
+                                size={16}
+                                color={materialTheme.COLORS.ICON}
+                                name="key"
+                                family="Entypo"
+                                style={styles.inputIcons}
+                              />
+                            }
+                          />
+                        </Block>
                       </Block>
                       {error ? (
                         <Block middle>
@@ -229,7 +242,7 @@ export default Register = ({
                               fontFamily: "montserrat-bold",
                             }}
                             size={12}
-                            color={materialTheme.COLORS.WARNING}
+                            color={materialTheme.COLORS.WHITE}
                           >
                             {error}
                           </Text>
@@ -354,14 +367,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
-
-// const mapStateToProps = ({ registerScreen }) => ({
-//   error: registerScreen.error,
-//   isLoading: registerScreen.isLoading,
-// });
-
-// export default connect(mapStateToProps, {
-//   registerUser,
-//   userPasswordNotSame,
-//   resetRegisterScreen,
-// })(Register);
