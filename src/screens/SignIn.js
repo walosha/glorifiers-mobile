@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-import { useDispatch } from "react-redux";
-import { signInUser, resetSignScreen } from "../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { signInUser } from "../store/actions";
+import { RESET_SIGNIN_SCREEN } from "../store/types";
 import { Button, Icon, Input } from "../components/";
 import { images, materialTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
@@ -20,26 +21,21 @@ const DismissKeyboard = ({ children, navigation }) => (
   </TouchableWithoutFeedback>
 );
 
-const SignInScreen = ({
-  signInUser,
-  navigation,
-  error,
-  isLoading,
-  resetSignScreen,
-}) => {
-  const [username, setUserName] = useState("");
+const SignInScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const secondTextInput = useRef(null);
 
   const dispatch = useDispatch();
+  const { isLoading, error } = useSelector(({ signInScreen }) => signInScreen);
 
   useEffect(() => {
-    // resetSignScreen();
+    dispatch({ type: RESET_SIGNIN_SCREEN });
   }, []);
 
   function onButnPress() {
     dispatch({ type: "FAKE_LOGIN" });
-    // signInUser({ username, password }, navigation);
+    signInUser({ email, password }, dispatch);
   }
 
   return (
@@ -117,9 +113,9 @@ const SignInScreen = ({
                     }}
                     muted
                     size={24}
-                    color={materialTheme.COLORS.PRIMARY}
+                    color={materialTheme.COLORS.WHITE}
                   >
-                    glorifiers savings & loan Mobile
+                    Welcome and Sign In
                   </Text>
                 </Block>
                 <Block flex={1} middle space="around">
@@ -134,13 +130,13 @@ const SignInScreen = ({
                             blurOnSubmit={false}
                             returnKeyType="next"
                             borderless
-                            placeholder="Username"
-                            onChangeText={(text) => setUserName(text)}
+                            placeholder="Email"
+                            onChangeText={(text) => setEmail(text)}
                             iconContent={
                               <Icon
                                 size={16}
                                 color={materialTheme.COLORS.ICON}
-                                name="graduation-cap"
+                                name="email"
                                 family="Entypo"
                                 style={styles.inputIcons}
                               />
@@ -175,7 +171,7 @@ const SignInScreen = ({
                               fontFamily: "montserrat-bold",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.WARNING}
+                            color={"#fff"}
                           >
                             {error}
                           </Text>
@@ -241,7 +237,6 @@ const styles = StyleSheet.create({
     marginTop: 55,
     width: width * 0.9,
     height: height < 812 ? height * 0.8 : height * 0.8,
-    backgroundColor: materialTheme.COLORS.WHITE,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -252,9 +247,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   socialConnect: {
-    backgroundColor: materialTheme.COLORS.WHITE,
-    // borderBottomWidth: StyleSheet.hairlineWidth,
-    // borderColor: "rgba(136, 152, 170, 0.3)"
+    // backgroundColor: materialTheme.COLORS.WHITE,
   },
   socialButtons: {
     width: 120,
@@ -300,11 +293,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: 10,
   },
-});
-
-const mapStateToProps = ({ signInScreen }) => ({
-  error: signInScreen.error,
-  isLoading: signInScreen.isLoading,
 });
 
 export default SignInScreen;

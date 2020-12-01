@@ -1,18 +1,16 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-
 import { Input } from "galio-framework";
-
-import Icon from "./Icon";
 import { materialTheme } from "../constants";
 
 class ArInput extends React.Component {
   render() {
-    const { shadowless, success, error } = this.props;
+    const { inputSyles, shadowless, success, error } = this.props;
 
     const inputStyles = [
       styles.input,
+      inputSyles,
       !shadowless && styles.shadow,
       success && styles.success,
       error && styles.error,
@@ -25,14 +23,6 @@ class ArInput extends React.Component {
         placeholderTextColor={materialTheme.COLORS.MUTED}
         style={inputStyles}
         color={materialTheme.COLORS.HEADER}
-        iconContent={
-          <Icon
-            size={14}
-            color={materialTheme.COLORS.ICON}
-            name="link"
-            family="AntDesign"
-          />
-        }
         {...this.props}
       />
     );

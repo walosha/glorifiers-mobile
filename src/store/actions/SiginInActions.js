@@ -1,21 +1,23 @@
 import {
-  LOGIN_SAVE,
+  LOGIN_START,
   LOGIN_USER,
   LOGOUT_USER,
   LOGIN_USER_FAILED,
-  RESET_SIGNIN_SCREEN,
+  LOGIN_USER_SUCCESSFUL,
 } from "../types";
+import { glorifiers } from "../../services/glorifiers";
 
-const resetSignScreen = () => (dispatch) => {
-  dispatch({ type: RESET_SIGNIN_SCREEN });
-};
-
-const signInUser = ({ username, password }, navigation) => async (dispatch) => {
+const signInUser = async ({ email, password }, dispatch) => {
+  dispatch({ type: LOGIN_START });
   try {
-    dispatch({ type: LOGIN_SAVE });
-    dispatch({ type: LOGIN_USER });
-  } catch (error) {
-    dispatch({ type: LOGIN_USER_FAILED });
+    const { data } = await glorifiers.post("/auth/signin", {
+      email,
+      password,
+    });
+
+    dispatch({ type: LOGIN_USER_SUCCESSFUL, payload: data });
+  } catch ({ response: { data } }) {
+    dispatch({ type: LOGIN_USER_FAILED, payload: data.error });
   }
 };
 
@@ -23,4 +25,4 @@ const LogOutUser = (dispatch) => {
   dispatch({ type: LOGOUT_USER });
 };
 
-export { signInUser, LogOutUser, resetSignScreen };
+export { signInUser, LogOutUser };

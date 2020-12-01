@@ -33,10 +33,11 @@ export default Register = ({
   registerUser,
   userPasswordNotSame,
 }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     // resetRegisterScreen();
@@ -127,9 +128,9 @@ export default Register = ({
                     }}
                     muted
                     size={24}
-                    color={materialTheme.COLORS.PRIMARY}
+                    color={materialTheme.COLORS.WHITE}
                   >
-                    glorifiers savings & loan Mobile
+                    Glorifiers Register !
                   </Text>
                 </Block>
                 <Block flex={1} middle space="between">
@@ -139,13 +140,46 @@ export default Register = ({
                         <Block width={width * 0.8} style={{ marginBottom: 5 }}>
                           <Input
                             borderless
-                            placeholder="Username"
-                            onChangeText={(text) => setUserName(text)}
+                            placeholder="First Name"
+                            onChangeText={(text) => setFirstName(text)}
                             iconContent={
                               <Icon
                                 size={16}
                                 color={materialTheme.COLORS.ICON}
-                                name="graduation-cap"
+                                name="person"
+                                family="Ionicons"
+                                style={styles.inputIcons}
+                              />
+                            }
+                          />
+                        </Block>
+
+                        <Block width={width * 0.8}>
+                          <Input
+                            borderless
+                            placeholder="Last Name"
+                            onChangeText={(text) => setLastName(text)}
+                            iconContent={
+                              <Icon
+                                size={16}
+                                color={materialTheme.COLORS.ICON}
+                                name="person"
+                                family="Ionicons"
+                                style={styles.inputIcons}
+                              />
+                            }
+                          />
+                        </Block>
+                        <Block width={width * 0.8}>
+                          <Input
+                            borderless
+                            placeholder="Phone Number"
+                            onChangeText={(text) => setPhoneNumber(text)}
+                            iconContent={
+                              <Icon
+                                size={16}
+                                color={materialTheme.COLORS.ICON}
+                                name="mobile"
                                 family="Entypo"
                                 style={styles.inputIcons}
                               />
@@ -175,24 +209,6 @@ export default Register = ({
                             borderless
                             placeholder="Password"
                             onChangeText={(text) => setPassword(text)}
-                            iconContent={
-                              <Icon
-                                size={16}
-                                color={materialTheme.COLORS.ICON}
-                                name="key"
-                                family="Entypo"
-                                style={styles.inputIcons}
-                              />
-                            }
-                          />
-                        </Block>
-                        <Block width={width * 0.8}>
-                          <Input
-                            viewPass
-                            password
-                            borderless
-                            placeholder="Confirm Password"
-                            onChangeText={(text) => setConfirmPassword(text)}
                             iconContent={
                               <Icon
                                 size={16}
@@ -279,7 +295,6 @@ const styles = StyleSheet.create({
     marginTop: 55,
     width: width * 0.9,
     height: height < 812 ? height * 0.8 : height * 0.8,
-    backgroundColor: materialTheme.COLORS.WHITE,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -290,7 +305,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   socialConnect: {
-    backgroundColor: materialTheme.COLORS.WHITE,
+    // backgroundColor: materialTheme.COLORS.WHITE,
     // borderBottomWidth: StyleSheet.hairlineWidth,
     // borderColor: "rgba(136, 152, 170, 0.3)"
   },

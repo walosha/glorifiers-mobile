@@ -40,7 +40,7 @@ export default function ActionButton() {
               color={materialTheme.COLORS.PRIMARY}
             />
             <Text size={19} color={materialTheme.COLORS.PRIMARY}>
-              Fund Transfer
+              Bank Transfer
             </Text>
           </View>
         </TouchableOpacity>

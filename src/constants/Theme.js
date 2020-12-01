@@ -9,6 +9,7 @@ export default {
     WARNING: "#FF9800",
     MUTED: "#979797",
     INPUT: "#DCDCDC",
+    WHITE: "#fff",
     ACTIVE: "#FF9800",
     BUTTON_COLOR: "#F69B3F",
     PLACEHOLDER: "#9FA5AA",

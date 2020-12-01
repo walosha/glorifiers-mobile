@@ -1,11 +1,11 @@
 import React from "react";
-import { withNavigation } from "@react-navigation/compat";
-import { connect } from "react-redux";
 import {
+  View,
   TouchableOpacity,
   StyleSheet,
   Platform,
   Dimensions,
+  Alert,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
@@ -107,19 +107,24 @@ export default class Header extends React.Component {
   renderButtons = () => {
     const { navigation, tabTitleLeft } = this.props;
 
+    const actionPress = (route) => {
+      navigation.navigate(route);
+    };
     return (
       <Block style={styles.tabs}>
-        <Button
-          shadowless
-          shadowColor="#000"
-          style={[styles.tab]}
-          onPress={() => {}}
+        <TouchableOpacity
+          onPress={() => actionPress("FundPurse")}
+          style={styles.action}
         >
-          FUND PURSE
-        </Button>
-        <Button shadowColor="#000" style={styles.tab} onPress={() => []}>
-          TRANSFER TO ACCOUNT
-        </Button>
+          <Text style={styles.actionText}>FUND PURSE</Text>
+        </TouchableOpacity>
+        <View style={{ marginHorizontal: 2 }} />
+        <TouchableOpacity
+          onPress={() => actionPress("TransferToAccount")}
+          style={styles.action}
+        >
+          <Text style={styles.actionText}>TRANSFER TO ACCOUNT</Text>
+        </TouchableOpacity>
       </Block>
     );
   };
@@ -181,7 +186,6 @@ export default class Header extends React.Component {
           rightStyle={{ alignItems: "center" }}
           leftStyle={{
             flex: 0.3,
-            paddingTop: 2,
           }}
           leftIconName={back ? "chevron-left" : "navicon"}
           leftIconColor={
@@ -206,6 +210,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
+  },
+  action: {
+    width: width * 0.47,
+    backgroundColor: materialTheme.COLORS.LABEL,
+    height: 55,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    borderRadius: 12,
+  },
+  actionText: {
+    margin: 4,
   },
   navbar: {
     paddingVertical: 0,

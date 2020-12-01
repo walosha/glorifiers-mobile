@@ -1,20 +1,18 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
 import {
-  LOGIN_USER,
-  LOGIN_SAVE,
+  LOGIN_START,
+  LOGIN_USER_SUCCESSFUL,
   LOGIN_USER_FAILED,
+  LOGOUT_USER_FAILED,
+  LOGOUT_USER_SUCCESSFUL,
   RESET_SIGNIN_SCREEN,
-  FAKE_LOGIN,
 } from "../types";
-import { State } from "react-native-gesture-handler";
 
 const initialValue = {
   token: null,
   isLoading: false,
-  user_display_name: "",
-  user_email: "",
-  user_nicename: "",
+  user: "",
   isSignout: true,
   error: "",
 };
@@ -23,23 +21,16 @@ export const signInReducer = (state = initialValue, action) => {
   switch (action.type) {
     case RESET_SIGNIN_SCREEN:
       return (state = initialValue);
-    case FAKE_LOGIN:
-      return {
-        ...initialValue,
-        token: "token",
-      };
-    case LOGIN_SAVE:
+    case LOGIN_START:
       return {
         ...initialValue,
         isLoading: true,
       };
-    case LOGIN_USER:
+    case LOGIN_USER_SUCCESSFUL:
       return {
-        token: action.token,
+        token: action.payload.token,
         error: "",
-        user_display_name: action.payload.user_display_name,
-        user_email: action.payload.user_email,
-        user_nicename: action.payload.user_email,
+        user: action.payload.data,
         isSignout: false,
         isLoading: false,
       };
@@ -49,7 +40,6 @@ export const signInReducer = (state = initialValue, action) => {
         isSignout: false,
         isLoading: false,
         error: action.payload,
-        // token: "9",
       };
 
     default:

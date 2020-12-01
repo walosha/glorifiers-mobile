@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, View, Dimensions } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
 import Icon from "./Icon";
 import materialTheme from "../constants/Theme";
@@ -19,6 +20,20 @@ const DrawerItem = ({ title, focused, navigation }) => {
               size={16}
               name="iconfontdesktop"
               family="AntDesign"
+              color={
+                focused
+                  ? materialTheme.COLORS.PRIMARY
+                  : materialTheme.COLORS.MUTED
+              }
+            />
+          </View>
+        );
+      case "Loan Application":
+        return (
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons
+              size={16}
+              name="sack"
               color={
                 focused
                   ? materialTheme.COLORS.PRIMARY

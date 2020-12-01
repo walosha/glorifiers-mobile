@@ -1,6 +1,5 @@
-export const LOGIN_USER = "LOGIN_USER";
 export const LOGIN_USER_FAILED = "LOGIN_USER_FAILED";
+export const LOGIN_USER_SUCCESSFUL = "LOGIN_USER_SUCCESSFUL";
 export const LOGOUT_USER = "LOGOUT_USER";
-export const LOGIN_SAVE = "LOGIN_SAVE";
+export const LOGIN_START = "LOGIN_START";
 export const RESET_SIGNIN_SCREEN = "RESET_SIGNIN_SCREEN";
-export const FAKE_LOGIN = "FAKE_LOGIN";

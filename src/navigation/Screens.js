@@ -11,6 +11,9 @@ import OnboardingScreen from "../screens/Onboarding";
 import ProfileScreen from "../screens/Profile";
 import CustomDrawerContent from "./Menu";
 import ContactSupportScreen from "../screens/ContactSupport";
+import LoanScreen from "../screens/Loans";
+import FundPurseScreen from "../screens/FundPurse";
+import TransferToAccountScreeen from "../screens/TransferToAccount";
 import NotificationsScreen from "../screens/Notifications";
 import SettingsScreen from "../screens/Settings";
 import GetHelpScreen from "../screens/GetHelp";
@@ -22,6 +25,58 @@ const { width } = Dimensions.get("screen");
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+
+function FundPurseStack(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName="FundPurse"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="FundPurse"
+        component={FundPurseScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              back
+              white
+              navigation={navigation}
+              title="Fund Purse"
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function TransferToAccountStack(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName="TransferToAccount"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="TransferToAccount"
+        component={TransferToAccountScreeen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              back
+              white
+              navigation={navigation}
+              title="Transfer To Account"
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function TicketStack(props) {
   return (
@@ -37,6 +92,21 @@ function TicketStack(props) {
               title="Ticket"
               scene={scene}
             />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function LoanStack(props) {
+  return (
+    <Stack.Navigator initialRouteName="Ticket" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Ticket"
+        component={LoanScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header white navigation={navigation} title="Loan" scene={scene} />
           ),
         }}
       />
@@ -256,6 +326,7 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
+      <Drawer.Screen name="LoanApplication" component={LoanStack} />
       <Drawer.Screen name="Notifications" component={NotificationsStack} />
       <Drawer.Screen name="Settings" component={SettingsStack} />
       <Drawer.Screen name="ContactSupport" component={ContactSupportStack} />
@@ -266,7 +337,6 @@ function AppStack(props) {
 }
 
 const ScreenStack = function ({ signInScreen, token, isSignout }) {
-  console.log({ token });
   return (
     <Stack.Navigator mode="card" headerMode="none">
       {token === null ? (
@@ -290,6 +360,11 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
       ) : (
         <Fragment>
           <Stack.Screen name="Tab" component={MyTabs} />
+          <Stack.Screen name="FundPurse" component={FundPurseStack} />
+          <Stack.Screen
+            name="TransferToAccount"
+            component={TransferToAccountStack}
+          />
         </Fragment>
       )}
     </Stack.Navigator>
