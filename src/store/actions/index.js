@@ -1,5 +1,5 @@
 export { signInUser, LogOutUser } from "./SiginInActions";
-export { homeFetchCategories, getcadacdesignsItems } from "./HomeScreenAction";
+export { getlast3Trans, getWallet } from "./HomeScreenAction";
 export {
   registerUser,
   userPasswordNotSame,

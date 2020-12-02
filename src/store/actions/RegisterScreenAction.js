@@ -27,7 +27,6 @@ const registerUser = async (
 ) => {
   dispatch({ type: RESET_REGISTER_SCREEN });
   try {
-    console.log({ firstName, lastName, phoneNumber, email, password });
     const { data } = await glorifiers.post("/auth/create-user", {
       firstName,
       lastName,
@@ -39,7 +38,6 @@ const registerUser = async (
     dispatch({ type: REGISTER_USER_SUCCESSSFUL });
     navigation.navigate("SignIn");
   } catch ({ response: { data } }) {
-    console.log(data);
     dispatch({ type: LOGIN_USER_FAILED, payload: data.error });
   }
 };

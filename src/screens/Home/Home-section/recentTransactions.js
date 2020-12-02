@@ -1,42 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Dimensions, ScrollView, FlatList } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Block, Text } from "galio-framework";
 import TransferList from "../../../components/TransferList";
 import { materialTheme } from "../../../constants";
+import { getlast3Trans } from "../../../store/actions";
 const { width, height } = Dimensions.get("screen");
-
-const DATA = [
-  {
-    id: "1",
-    date: "02 sept, 2020",
-    status: "Sucessful",
-    amount: "30,000.90",
-    description: "Transfer to Olawale Afuye",
-  },
-  {
-    id: "12",
-    date: "02 sept, 2020",
-    status: "failed",
-    amount: "30,000.90",
-    description: "Transfer to Olawale Afuye",
-  },
-  {
-    id: "11",
-    date: "02 sept, 2020",
-    status: "sucessfull",
-    amount: "1020,000.90",
-    description: "Transfer from Abeeb Lekan",
-  },
-];
 
 export default function RecentTransactions() {
   const [selectedId, setSelectedId] = useState(null);
-  const renderItem = ({ item: { date, status, amount, description } }) => (
+  const dispatch = useDispatch();
+  const { transArray } = useSelector(({ homeScreen }) => homeScreen);
+
+  useEffect(() => {
+    getlast3Trans(dispatch);
+  }, []);
+
+  const renderItem = ({ item: { createdAt, type, amount, narration } }) => (
     <TransferList
-      date={date}
-      status={status}
+      date={createdAt}
+      status={type}
       amount={amount}
-      description={description}
+      description={narration}
     />
   );
 
@@ -48,7 +33,7 @@ export default function RecentTransactions() {
         </Text>
       </Block>
       <FlatList
-        data={DATA}
+        data={transArray}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}

@@ -4,41 +4,32 @@ import PropTypes from "prop-types";
 import { Input } from "galio-framework";
 import { materialTheme } from "../constants";
 
-class ArInput extends React.Component {
-  render() {
-    const { inputSyles, shadowless, success, error } = this.props;
+const ArInput = ({
+  inputSyles,
+  shadowless,
+  success,
+  error,
+  style,
+  ...other
+}) => {
+  const inputStyles = [
+    styles.input,
+    inputSyles,
+    !shadowless && styles.shadow,
+    success && styles.success,
+    error && styles.error,
+    { ...style },
+  ];
 
-    const inputStyles = [
-      styles.input,
-      inputSyles,
-      !shadowless && styles.shadow,
-      success && styles.success,
-      error && styles.error,
-      { ...this.props.style },
-    ];
-
-    return (
-      <Input
-        placeholder="write something here"
-        placeholderTextColor={materialTheme.COLORS.MUTED}
-        style={inputStyles}
-        color={materialTheme.COLORS.HEADER}
-        {...this.props}
-      />
-    );
-  }
-}
-
-ArInput.defaultProps = {
-  shadowless: false,
-  success: false,
-  error: false,
-};
-
-ArInput.propTypes = {
-  shadowless: PropTypes.bool,
-  success: PropTypes.bool,
-  error: PropTypes.bool,
+  return (
+    <Input
+      placeholder="write something here"
+      placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
+      style={inputStyles}
+      color={materialTheme.COLORS.HEADER}
+      {...other}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

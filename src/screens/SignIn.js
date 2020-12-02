@@ -204,7 +204,7 @@ const SignInScreen = ({ navigation }) => {
                               textDecorationLine: "underline",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.PRIMARY}
+                            color={materialTheme.COLORS.WHITE}
                           >
                             If you dont have an account, kindly sign up.
                           </Text>

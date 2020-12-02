@@ -13,7 +13,8 @@ export {
   RESET_REGISTER_SCREEN,
 } from "./RegisterTypes";
 export {
-  HOME_FETCH,
+  LAST3TRANSACTIONS_SUCCESS,
+  GET_WALLET_BALANCE,
   HOME_FETCH_SUCCESS,
   HOME_FETCH_FAILURE,
 } from "./HomeScreenType";

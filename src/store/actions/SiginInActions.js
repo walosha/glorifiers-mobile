@@ -5,7 +5,7 @@ import {
   LOGIN_USER_FAILED,
   LOGIN_USER_SUCCESSFUL,
 } from "../types";
-import { glorifiers } from "../../services/glorifiers";
+import { glorifiers, setAuthorizationHeader } from "../../services/glorifiers";
 
 const signInUser = async ({ email, password }, dispatch) => {
   dispatch({ type: LOGIN_START });
@@ -14,6 +14,8 @@ const signInUser = async ({ email, password }, dispatch) => {
       email,
       password,
     });
+
+    setAuthorizationHeader(data.token);
 
     dispatch({ type: LOGIN_USER_SUCCESSFUL, payload: data });
   } catch ({ response: { data } }) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -7,38 +7,19 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
-import { useSelector } from "react-redux";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
-import Icon from "./Icon";
+import { useDispatch, useSelector } from "react-redux";
+import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
+import { getWallet } from "../store/actions";
+import Icon from "./Icon";
 
 const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
 
-const getCurrentDate = () => {
-  const monthArray = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  var date = new Date().getDate();
-  var month = new Date().getMonth();
-  var year = new Date().getFullYear();
-
-  return date + "-" + monthArray[month] + "-" + year; //format: dd-mm-yyyy;
-};
-const SearchButton = ({ isWhite, style, navigation }) => (
+const WifiButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => {}}>
     <Icon
       size={24}
@@ -65,48 +46,38 @@ const ReloadButton = ({ isWhite, style, navigation }) => (
     />
   </TouchableOpacity>
 );
-export default class Header extends React.Component {
-  handleLeftPress = () => {
-    const { back, navigation } = this.props;
+const Header = ({
+  back,
+  title,
+  white,
+  tabTitleLeft,
+  transparent,
+  navigation,
+  search,
+  tabs,
+}) => {
+  const dispatch = useDispatch();
+  const { balance } = useSelector(({ homeScreen }) => homeScreen);
+
+  useEffect(() => {
+    getWallet(dispatch);
+  }, []);
+
+  const handleLeftPress = () => {
     return back ? navigation.goBack() : navigation.openDrawer();
   };
 
-  renderRight = () => {
-    const { white, title, navigation } = this.props;
-
+  const renderRight = () => {
     if (title === "")
       return [
-        <SearchButton navigation={navigation} isWhite={white} />,
+        <WifiButton navigation={navigation} isWhite={white} />,
         <ReloadButton navigation={navigation} isWhite={white} />,
       ];
 
     return null;
   };
 
-  renderSearch = () => {
-    const { navigation } = this.props;
-    return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        placeholder="Search for all products..."
-        onChangeText={(text) => this.props.searchItem(text)}
-        iconContent={
-          <Icon
-            size={16}
-            color={theme.COLORS.MUTED}
-            name="magnifying-glass"
-            family="entypo"
-          />
-        }
-      />
-    );
-  };
-
-  renderButtons = () => {
-    const { navigation, tabTitleLeft } = this.props;
-
+  const renderButtons = () => {
     const actionPress = (route) => {
       navigation.navigate(route);
     };
@@ -129,9 +100,7 @@ export default class Header extends React.Component {
     );
   };
 
-  renderBalance = () => {
-    const { navigation, tabTitleLeft } = this.props;
-
+  const renderBalance = () => {
     return (
       <Block center>
         <Text
@@ -139,14 +108,13 @@ export default class Header extends React.Component {
           style={{ fontFamily: "montserrat-regular" }}
           color="#fff"
         >
-          =N= 45,252.25
+          =N= {numberWithCommas(balance)}
         </Text>
       </Block>
     );
   };
 
-  renderHeader = () => {
-    const { search, tabs } = this.props;
+  const renderHeader = () => {
     if (search || tabs) {
       return (
         <Block
@@ -157,48 +125,42 @@ export default class Header extends React.Component {
           }}
           center
         >
-          {search ? this.renderSearch() : null}
-          {this.renderBalance()}
-          {tabs ? this.renderButtons() : null}
+          {renderBalance()}
+          {tabs ? renderButtons() : null}
         </Block>
       );
     }
     return null;
   };
 
-  render() {
-    const { back, title, white, transparent, navigation } = this.props;
-    const noShadow = ["Search", "Categories", "Deals", "Profile"].includes(
-      title
-    );
-    const headerStyles = [
-      !noShadow ? styles.shadow : null,
-      transparent ? { backgroundColor: "rgba(0,0,0,0)" } : null,
-    ];
+  const noShadow = ["Search", "Categories", "Deals", "Profile"].includes(title);
+  const headerStyles = [
+    !noShadow ? styles.shadow : null,
+    transparent ? { backgroundColor: "rgba(0,0,0,0)" } : null,
+  ];
 
-    return (
-      <Block style={headerStyles}>
-        <NavBar
-          title={title}
-          style={styles.navbar}
-          transparent={transparent}
-          right={this.renderRight()}
-          rightStyle={{ alignItems: "center" }}
-          leftStyle={{
-            flex: 0.3,
-          }}
-          leftIconName={back ? "chevron-left" : "navicon"}
-          leftIconColor={
-            white ? theme.COLORS.WHITE : materialTheme.COLORS.PRIMARY
-          }
-          titleStyle={[styles.title]}
-          onLeftPress={this.handleLeftPress}
-        />
-        {this.renderHeader()}
-      </Block>
-    );
-  }
-}
+  return (
+    <Block style={headerStyles}>
+      <NavBar
+        title={title}
+        style={styles.navbar}
+        transparent={transparent}
+        right={renderRight()}
+        rightStyle={{ alignItems: "center" }}
+        leftStyle={{
+          flex: 0.3,
+        }}
+        leftIconName={back ? "chevron-left" : "navicon"}
+        leftIconColor={
+          white ? theme.COLORS.WHITE : materialTheme.COLORS.PRIMARY
+        }
+        titleStyle={[styles.title]}
+        onLeftPress={handleLeftPress}
+      />
+      {renderHeader()}
+    </Block>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -283,3 +245,5 @@ const styles = StyleSheet.create({
     color: "#FFF",
   },
 });
+
+export default Header;

@@ -2,18 +2,21 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Block, Text } from "galio-framework";
 import { materialTheme } from "../constants";
+import { numberWithCommas, formatUTFDate } from "../helpers";
 
 export default function TransferList({ amount, description, status, date }) {
-  const styledStaus = status === "failed" ? "red" : "green";
+  console.log({ date });
   return (
     <Block style={{ marginBottom: 2 }}>
       <Block space="around" row>
-        <Text color={styledStaus}>N {amount}</Text>
-        <Text color={styledStaus}>{status}</Text>
+        <Text color={materialTheme.COLORS.PRIMARY}>
+          N {numberWithCommas(amount)}
+        </Text>
+        <Text color={materialTheme.COLORS.PRIMARY}>{status}</Text>
       </Block>
       <Block space="around" row>
-        <Text>{description}</Text>
-        <Text>{date}</Text>
+        <Text size={12}>{description}</Text>
+        <Text size={12}>{formatUTFDate(date)}</Text>
       </Block>
       <Block style={styles.divider} />
     </Block>

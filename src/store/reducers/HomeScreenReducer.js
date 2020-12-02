@@ -1,41 +1,32 @@
-import { HOME_FETCH, HOME_FETCH_SUCCESS, HOME_FETCH_FAILURE } from "../types";
+import {
+  LAST3TRANSACTIONS_SUCCESS,
+  HOME_FETCH_SUCCESS,
+  HOME_FETCH_FAILURE,
+  GET_WALLET_BALANCE,
+} from "../types";
 
 const initialValue = {
-  categories: [
-    "cars",
-    "clothing",
-    "computers",
-    "dogs",
-    "phones",
-    "playstation",
-    "watches",
-  ],
-  products: [],
+  transArray: [],
   isLoading: false,
   error: "",
+  balance: 0,
 };
 
 export const HomeReducer = (state = initialValue, action) => {
   switch (action.type) {
-    case HOME_FETCH:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case HOME_FETCH_SUCCESS:
-      return {
-        ...state,
-        error: "",
-        categories: action.payload.categories,
-        products: action.payload.products,
-        isLoading: false,
-      };
-    case HOME_FETCH_FAILURE:
+    case LAST3TRANSACTIONS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        transArray: [...action.payload],
       };
+
+    case GET_WALLET_BALANCE:
+      return {
+        ...state,
+        balance: action.payload?.balance || 0,
+      };
+
     default:
       return state;
   }

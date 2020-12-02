@@ -275,7 +275,7 @@ export default Register = ({ navigation }) => {
                               textDecorationLine: "underline",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.PRIMARY}
+                            color={materialTheme.COLORS.WHITE}
                           >
                             Kindly Sign In Here
                           </Text>
