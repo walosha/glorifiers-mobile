@@ -26,7 +26,7 @@ const ArInput = ({
       placeholder="write something here"
       placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
       style={inputStyles}
-      color={materialTheme.COLORS.HEADER}
+      color={materialTheme.COLORS.PRIMARY}
       {...other}
     />
   );

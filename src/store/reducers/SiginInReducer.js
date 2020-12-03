@@ -7,12 +7,15 @@ import {
   LOGOUT_USER_FAILED,
   LOGOUT_USER_SUCCESSFUL,
   RESET_SIGNIN_SCREEN,
+     PROFILE_IMAGE_SUCCESSSFUL,
+  PROFILE_IMAGE_UPLOAD,
+  PROFILE_IMAGE_FAILED,
 } from "../types";
 
 const initialValue = {
   token: null,
   isLoading: false,
-  user: "",
+  user: null,
   isSignout: true,
   error: "",
 };
@@ -40,6 +43,25 @@ export const signInReducer = (state = initialValue, action) => {
         isSignout: false,
         isLoading: false,
         error: action.payload,
+      };
+      case PROFILE_IMAGE_UPLOAD:
+      return {
+        ...state,
+        error: "",
+        isLoading: true,
+      };
+
+    case PROFILE_IMAGE_SUCCESSSFUL:
+      return {
+        ...state,
+        error: "",
+        user: {...state.user,image:action.payload},
+      };
+    case PROFILE_IMAGE_FAILED:
+      return {
+        ...state,
+        error: "failed to Upload!",
+       
       };
 
     default:

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -6,18 +6,55 @@ import {
   Image,
   ImageBackground,
   Platform,
+  Alert,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-import { useSelector } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../components";
 import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
+import { uploadProfileImage } from "../store/actions";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 const Profile = () => {
   const { user } = useSelector(({ signInScreen }) => signInScreen);
+
+  const dispatch = useDispatch();
+  const {image} = useSelector(({signInScreen}) =>({image: signInScreen.user.image}));
+
+  console.log({image})
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const {
+          status,
+        } = await ImagePicker.requestCameraRollPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert(
+            "Sorry, we need camera roll permissions to make this work!"
+          );
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      uploadProfileImage(result.uri, dispatch);
+    }
+  };
 
   return (
     <Block flex style={styles.profile}>
@@ -36,14 +73,16 @@ const Profile = () => {
           >
             <Block flex style={styles.profileCard}>
               <Block middle style={styles.avatarContainer}>
-                <Image
-                  source={{
-                    uri: user.image,
-                  }}
-                  style={styles.avatar}
-                />
+                <TouchableOpacity onPress={pickImage}>
+                  <Image
+                    source={{
+                      uri:
+                        `https://glorifiers.s3-us-west-1.amazonaws.com/${image}`,
+                    }}
+                    style={styles.avatar}
+                  />
+                </TouchableOpacity>
               </Block>
-
               <Block flex>
                 <Block middle style={styles.nameInfo}>
                   <Text bold size={28} color={materialTheme.COLORS.PRIMARY}>

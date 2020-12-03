@@ -11,7 +11,8 @@ import { images, materialTheme } from "./src/constants";
 import { store, persistor } from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./src/navigation/Screens";
-
+import AsyncStorage from "@react-native-community/async-storage";
+import { setAuthorizationHeader } from "./src/services/glorifiers";
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
 enableScreens();
@@ -35,6 +36,9 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
+    const token = await AsyncStorage.getItem("token");
+    setAuthorizationHeader(token);
+
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),

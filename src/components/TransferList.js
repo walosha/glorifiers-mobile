@@ -5,7 +5,6 @@ import { materialTheme } from "../constants";
 import { numberWithCommas, formatUTFDate } from "../helpers";
 
 export default function TransferList({ amount, description, status, date }) {
-  console.log({ date });
   return (
     <Block style={{ marginBottom: 2 }}>
       <Block space="around" row>

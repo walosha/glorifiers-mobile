@@ -6,6 +6,10 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { Block, Button as GaButton, Text, theme, Icon } from "galio-framework";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { materialTheme } from "../../../constants";
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
   actionContainer: {
     paddingHorizontal: 7,
     paddingVertical: 5,
-    height: height * 0.3,
+    height: hp("30%"),
   },
   btn: {
     width: width * 0.5,

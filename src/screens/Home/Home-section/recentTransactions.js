@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Dimensions, ScrollView, FlatList } from "react-native";
+import { View, Dimensions, StyleSheet, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Block, Text } from "galio-framework";
 import TransferList from "../../../components/TransferList";
 import { materialTheme } from "../../../constants";
 import { getlast3Trans } from "../../../store/actions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const { width, height } = Dimensions.get("screen");
 
 export default function RecentTransactions() {
@@ -26,7 +30,7 @@ export default function RecentTransactions() {
   );
 
   return (
-    <View>
+    <View style={styles.actionContainer}>
       <Block style={{ padding: 7, fontFamily: "montserrat-regular" }} middle>
         <Text size={30} color={materialTheme.COLORS.MUTED}>
           RecentTransactions
@@ -41,3 +45,11 @@ export default function RecentTransactions() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    height: hp("70%"),
+  },
+});
