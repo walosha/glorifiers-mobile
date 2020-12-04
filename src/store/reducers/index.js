@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import AsyncStorage from "@react-native-community/async-storage";
 import { signInReducer } from "./SiginInReducer";
 import { registerReducer } from "./registerScreenReducer";
+import { transferAccountReducer } from "./TransferAccountReducer";
 import { HomeReducer } from "./HomeScreenReducer";
 import { LOGOUT_USER } from "../types";
 
@@ -9,6 +10,7 @@ const appReducer = combineReducers({
   signInScreen: signInReducer,
   homeScreen: HomeReducer,
   registerScreen: registerReducer,
+  transferScreen: transferAccountReducer,
 });
 
 export const rootReducer = (state, action) => {

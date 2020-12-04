@@ -14,8 +14,6 @@ export const glorifiers = axios.create({
 
 export const setAuthorizationHeader = async (token) => {
   if (token) {
-    await AsyncStorage.setItem("token", token);
-
     glorifiers.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 };

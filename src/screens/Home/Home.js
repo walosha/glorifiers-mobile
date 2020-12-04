@@ -10,7 +10,6 @@ const Home = () => {
   const { token } = useSelector(({ signInScreen }) => ({
     token: signInScreen.token,
   }));
-  console.log({ token });
 
   useEffect(() => {
     setAuthorizationHeader(token);

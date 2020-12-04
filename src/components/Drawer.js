@@ -144,7 +144,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
   return (
     <TouchableOpacity
       style={title === "Log Out" ? { height: height * 0.4 } : { height: 55 }}
-      onPress={() => {
+      onPress={async () => {
         title === "Log Out" && dispatch({ type: LOGOUT_USER });
         navigation.navigate(title.split(" ").join(""));
       }}

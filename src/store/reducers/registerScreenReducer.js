@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-community/async-storage";
-
 import {
   REGISTER_USER_SUCCESSSFUL,
   REGISTER_SAVE,

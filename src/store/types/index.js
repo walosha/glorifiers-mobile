@@ -22,3 +22,9 @@ export {
   HOME_FETCH_FAILURE,
   NO_WALLET_CREATED,
 } from "./HomeScreenType";
+
+export {
+  ACCOUNT_FETCH_FAILED,
+  ACCOUNT_FETCH_SUCESS,
+  RESET_SCREEN,
+} from "./TransferAccountTypes";

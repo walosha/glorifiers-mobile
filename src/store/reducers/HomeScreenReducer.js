@@ -6,7 +6,7 @@ import {
   NO_WALLET_CREATED,
 } from "../types";
 
-const fundWallet = "FUND YOUR WALLET";
+const fundWallet = "Fund Your Wallet";
 
 const initialValue = {
   isLoading: false,

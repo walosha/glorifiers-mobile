@@ -17,7 +17,7 @@ export default function FundPurse() {
     <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
       <Block style={{ padding: 15, marginBottom: 20 }} middle>
         <Text color={materialTheme.COLORS.PRIMARY} size={17}>
-          How much does the customer want to withdraw
+          Kindly fill the forms below.
         </Text>
       </Block>
       <Block>

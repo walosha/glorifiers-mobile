@@ -7,11 +7,8 @@ export const getlast3Trans = async () => {
     const {
       data: { data },
     } = await glorifiers.get("/last-3-transaction");
-    console.log({ data });
     return data;
-  } catch ({ response: { data } }) {
-    console.log(data);
-  }
+  } catch ({ response: { data } }) {}
 };
 
 export const getWallet = async (dispatch) => {
@@ -22,6 +19,6 @@ export const getWallet = async (dispatch) => {
 
     dispatch({ type: GET_WALLET_BALANCE, payload: data });
   } catch ({ response: { data } }) {
-    console.log(data);
+    console.error(data);
   }
 };

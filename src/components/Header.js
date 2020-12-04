@@ -87,7 +87,7 @@ const Header = ({
           onPress={() => actionPress("FundPurse")}
           style={styles.action}
         >
-          <Text style={styles.actionText}>FUND PURSE</Text>
+          <Text style={styles.actionText}>FUND WALLET</Text>
         </TouchableOpacity>
         <View style={{ marginHorizontal: 2 }} />
         <TouchableOpacity

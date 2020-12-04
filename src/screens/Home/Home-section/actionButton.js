@@ -10,14 +10,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Block, Button as GaButton, Text, theme, Icon } from "galio-framework";
+import { Button as GaButton, Text, theme, Icon } from "galio-framework";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { materialTheme } from "../../../constants";
 const { width, height } = Dimensions.get("screen");
 
 export default function ActionButton() {
   function onActionBtnPress() {
-    Alert.alert("Features not yet Available");
+    Alert.alert("Coming Soon!");
   }
 
   return (
