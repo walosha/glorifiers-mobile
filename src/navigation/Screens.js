@@ -17,6 +17,8 @@ import TransferToAccountScreeen from "../screens/TransferToAccount";
 import TransferConfiirmationScreen from "../screens/TransferConfiirmationScreen";
 import NotificationsScreen from "../screens/Notifications";
 import SettingsScreen from "../screens/Settings";
+import SucessPaymentScreen from "../screens/SucessPayment";
+import FailurePaymentScreen from "../screens/FailurePayment";
 import GetHelpScreen from "../screens/GetHelp";
 import TicketScreen from "../screens/Ticket";
 import { Icon, Header } from "../components";
@@ -393,6 +395,11 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
             name="TransferConfirmation"
             component={TransferConfiirmationStack}
           />
+          <Stack.Screen
+            name="FailurePayment"
+            component={FailurePaymentScreen}
+          />
+          <Stack.Screen name="SucessPayment" component={SucessPaymentScreen} />
         </Fragment>
       )}
     </Stack.Navigator>

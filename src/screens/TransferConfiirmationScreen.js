@@ -5,7 +5,10 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
 export default function TransferConfiirmationScreen({ navigation, params }) {
-  const onConfirm = () => {};
+  const onConfirm = () => {
+    navigation.navigate("FailurePayment");
+  };
+
   return (
     <Block
       space={"evenly"}

@@ -108,7 +108,8 @@ const Header = ({
           style={{ fontFamily: "montserrat-regular" }}
           color="#fff"
         >
-          =N= {numberWithCommas(balance)}
+          {"\u20A6"}
+          {numberWithCommas(balance)}
         </Text>
       </Block>
     );
