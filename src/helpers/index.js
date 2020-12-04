@@ -52,3 +52,7 @@ export const validatePhoneNumber = (number) => {
   let reg = /^(\+?91|0)?[6789]\d{9}$/;
   return reg.test(number);
 };
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

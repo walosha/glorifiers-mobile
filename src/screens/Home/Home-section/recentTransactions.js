@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Dimensions, StyleSheet, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "react-query";
 import { Block, Text } from "galio-framework";
 import TransferList from "../../../components/TransferList";
 import { materialTheme } from "../../../constants";
@@ -13,12 +14,10 @@ const { width, height } = Dimensions.get("screen");
 
 export default function RecentTransactions() {
   const [selectedId, setSelectedId] = useState(null);
-  const dispatch = useDispatch();
-  const { transArray } = useSelector(({ homeScreen }) => homeScreen);
-
-  useEffect(() => {
-    getlast3Trans(dispatch);
-  }, []);
+  const { isLoading, isError, data, error } = useQuery(
+    "getlast3Trans",
+    getlast3Trans
+  );
 
   const renderItem = ({ item: { createdAt, type, amount, narration } }) => (
     <TransferList
@@ -37,7 +36,7 @@ export default function RecentTransactions() {
         </Text>
       </Block>
       <FlatList
-        data={transArray}
+        data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}

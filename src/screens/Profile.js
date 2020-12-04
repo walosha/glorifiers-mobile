@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Platform,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import * as ImagePicker from "expo-image-picker";
@@ -15,7 +16,7 @@ import { Button } from "../components";
 import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import { uploadProfileImage } from "../store/actions";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { capitalizeFirstLetter } from "../helpers";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -24,9 +25,9 @@ const Profile = () => {
   const { user } = useSelector(({ signInScreen }) => signInScreen);
 
   const dispatch = useDispatch();
-  const {image} = useSelector(({signInScreen}) =>({image: signInScreen.user.image}));
-
-  console.log({image})
+  const { image } = useSelector(({ signInScreen }) => ({
+    image: signInScreen.user.image,
+  }));
 
   useEffect(() => {
     (async () => {
@@ -76,8 +77,7 @@ const Profile = () => {
                 <TouchableOpacity onPress={pickImage}>
                   <Image
                     source={{
-                      uri:
-                        `https://glorifiers.s3-us-west-1.amazonaws.com/${image}`,
+                      uri: `https://glorifiers.s3-us-west-1.amazonaws.com/${image}`,
                     }}
                     style={styles.avatar}
                   />
@@ -86,7 +86,8 @@ const Profile = () => {
               <Block flex>
                 <Block middle style={styles.nameInfo}>
                   <Text bold size={28} color={materialTheme.COLORS.PRIMARY}>
-                    {user.firstName} {user.lastName}
+                    {capitalizeFirstLetter(user.firstName)}
+                    {capitalizeFirstLetter(user.lastName)}
                   </Text>
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                     Ikorodu Lagos, NG

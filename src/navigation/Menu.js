@@ -6,9 +6,11 @@ import {
   Image,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import { useSelector } from "react-redux";
 import { useSafeArea } from "react-native-safe-area-context";
 import { Icon, Drawer as DrawerCustomItem } from "../components/";
 import { materialTheme } from "../constants/";
+import { capitalizeFirstLetter } from "../helpers";
 
 const screens = [
   "Home",
@@ -30,6 +32,13 @@ function CustomDrawerContent({
   ...rest
 }) {
   const insets = useSafeArea();
+  const {
+    accountNumber,
+    user: { firstName, lastName },
+  } = useSelector(({ signInScreen, homeScreen }) => ({
+    user: signInScreen.user,
+    accountNumber: homeScreen.accountNumber,
+  }));
 
   return (
     <Block
@@ -42,13 +51,14 @@ function CustomDrawerContent({
         >
           <Block style={styles.profile}>
             <Text h5 color={materialTheme.COLORS.PRIMARY}>
-              Seun Bankole Oyesanya
+              {capitalizeFirstLetter(firstName)}{" "}
+              {capitalizeFirstLetter(lastName)}
             </Text>
           </Block>
         </TouchableWithoutFeedback>
         <Block row space="between">
           <Text size={16} color={materialTheme.COLORS.WARNING}>
-            Account Number: 0095432012
+            Account Number: {accountNumber}
           </Text>
           <Icon
             color={materialTheme.COLORS.PRIMARY}

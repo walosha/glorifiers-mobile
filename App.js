@@ -1,5 +1,5 @@
-import React from "react";
-import { Platform, StatusBar, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Platform, StatusBar, Image, AppState } from "react-native";
 import { PersistGate } from "redux-persist/integration/react";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -7,12 +7,11 @@ import { Asset } from "expo-asset";
 import { Root } from "native-base";
 import { Provider } from "react-redux";
 import { Block, GalioProvider } from "galio-framework";
+import { setFocusHandler } from "react-query";
 import { images, materialTheme } from "./src/constants";
 import { store, persistor } from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./src/navigation/Screens";
-import AsyncStorage from "@react-native-community/async-storage";
-import { setAuthorizationHeader } from "./src/services/glorifiers";
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
 enableScreens();
@@ -30,63 +29,72 @@ function cacheImages(images) {
   });
 }
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
+const App = ({ skipLoadingScreen }) => {
+  setFocusHandler((handleFocus) => {
+    const handleAppStateChange = (appState) => {
+      if (appState === "active") {
+        handleFocus();
+      }
+    };
+    AppState.addEventListener("change", handleAppStateChange);
+    return () => AppState.removeEventListener("change", handleAppStateChange);
+  });
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
+  const _loadResourcesAsync = async () => {
+    return Promise.all([...cacheImages(assetImages)]);
   };
-
-  async componentDidMount() {
-    const token = await AsyncStorage.getItem("token");
-    setAuthorizationHeader(token);
-
-    await Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      "montserrat-regular": require("./src/assets/fonts/Montserrat-Regular.ttf"),
-      "montserrat-bold": require("./src/assets/fonts/Montserrat-Bold.ttf"),
-    });
-  }
-
-  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <Root>
-              <NavigationContainer>
-                <GalioProvider theme={materialTheme}>
-                  <Block flex>
-                    {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-                    <Screens />
-                  </Block>
-                </GalioProvider>
-              </NavigationContainer>
-            </Root>
-          </PersistGate>
-        </Provider>
-      );
-    }
-  }
-
-  _loadResourcesAsync = async () => {
+  const __ = async () => {
     return Promise.all([...cacheImages(assetImages)]);
   };
 
-  _handleLoadingError = (error) => {
+  const _handleLoadingError = (error) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
   };
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+  const _handleFinishLoading = () => {
+    setIsLoadingComplete(true);
   };
-}
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        "montserrat-regular": require("./src/assets/fonts/Montserrat-Regular.ttf"),
+        "montserrat-bold": require("./src/assets/fonts/Montserrat-Bold.ttf"),
+      });
+    }
+  }, []);
+
+  if (!isLoadingComplete && !skipLoadingScreen) {
+    return (
+      <AppLoading
+        startAsync={_loadResourcesAsync}
+        onError={_handleLoadingError}
+        onFinish={_handleFinishLoading}
+      />
+    );
+  } else {
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <Root>
+            <NavigationContainer>
+              <GalioProvider theme={materialTheme}>
+                <Block flex>
+                  {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+                  <Screens />
+                </Block>
+              </GalioProvider>
+            </NavigationContainer>
+          </Root>
+        </PersistGate>
+      </Provider>
+    );
+  }
+};
+
+export default App;

@@ -3,28 +3,25 @@ import {
   HOME_FETCH_SUCCESS,
   HOME_FETCH_FAILURE,
   GET_WALLET_BALANCE,
+  NO_WALLET_CREATED,
 } from "../types";
 
+const fundWallet = "FUND YOUR WALLET";
+
 const initialValue = {
-  transArray: [],
   isLoading: false,
   error: "",
   balance: 0,
+  accountNumber: fundWallet,
 };
 
 export const HomeReducer = (state = initialValue, action) => {
   switch (action.type) {
-    case LAST3TRANSACTIONS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        transArray: [...action.payload],
-      };
-
     case GET_WALLET_BALANCE:
       return {
         ...state,
         balance: action.payload?.balance || 0,
+        accountNumber: action.payload?.accountNumber || fundWallet,
       };
 
     default:
