@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { Input } from "../components/";
 import { materialTheme } from "../constants";
 import { onAccountNameFetch } from "../store/actions";
+import { RESET_SCREEN } from "../store/types";
 const { width } = Dimensions.get("screen");
 
-export default function TransferToAccount() {
+export default function TransferToAccount({ navigation }) {
   const [amount, setAmount] = useState(null);
   const [accountNumber, setAccountNumber] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: RESET_SCREEN });
+  }, []);
+
   const {
-    transferScreen: { error, number },
+    transferScreen: { error, number, disabled },
   } = useSelector(({ transferScreen }) => ({
     transferScreen,
   }));
@@ -21,6 +27,14 @@ export default function TransferToAccount() {
     if (amount && accountNumber) {
       onAccountNameFetch(accountNumber, dispatch);
     }
+  };
+
+  const onConfirm = () => {
+    navigation.navigate("TransferConfirmation", {
+      amount,
+      accountNumber,
+      number,
+    });
   };
 
   return (
@@ -75,7 +89,9 @@ export default function TransferToAccount() {
         />
 
         <Block style={{ padding: 10 }} middle>
-          <GaButton>Confirm</GaButton>
+          <GaButton onPress={onConfirm} disabled={disabled}>
+            Confirm
+          </GaButton>
         </Block>
       </Block>
     </View>

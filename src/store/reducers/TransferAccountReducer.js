@@ -9,6 +9,7 @@ import {
 const initialValue = {
   number: null,
   error: "",
+  disabled: true,
 };
 
 export const transferAccountReducer = (state = initialValue, action) => {
@@ -20,12 +21,14 @@ export const transferAccountReducer = (state = initialValue, action) => {
     case ACCOUNT_FETCH_SUCESS:
       return {
         number: action.payload,
+        disabled: false,
         error: "",
       };
     case ACCOUNT_FETCH_FAILED:
       return {
         number: null,
         error: action.payload,
+        disabled: true,
       };
 
     default:

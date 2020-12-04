@@ -14,6 +14,7 @@ import ContactSupportScreen from "../screens/ContactSupport";
 import LoanScreen from "../screens/Loans";
 import FundPurseScreen from "../screens/FundPurse";
 import TransferToAccountScreeen from "../screens/TransferToAccount";
+import TransferConfiirmationScreen from "../screens/TransferConfiirmationScreen";
 import NotificationsScreen from "../screens/Notifications";
 import SettingsScreen from "../screens/Settings";
 import GetHelpScreen from "../screens/GetHelp";
@@ -73,7 +74,30 @@ function TransferToAccountStack(props) {
             />
           ),
         }}
-      />
+      ></Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+
+function TransferConfiirmationStack({ route: { params } }) {
+  return (
+    <Stack.Navigator initialRouteName="Ticket" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Confirm Transfer"
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              back
+              white
+              navigation={navigation}
+              title="Confirm Transfer to Account"
+              scene={scene}
+            />
+          ),
+        }}
+      >
+        {(props) => <TransferConfiirmationScreen {...props} params={params} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -364,6 +388,10 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
           <Stack.Screen
             name="TransferToAccount"
             component={TransferToAccountStack}
+          />
+          <Stack.Screen
+            name="TransferConfirmation"
+            component={TransferConfiirmationStack}
           />
         </Fragment>
       )}
