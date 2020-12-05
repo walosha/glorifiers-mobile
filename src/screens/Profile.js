@@ -53,7 +53,21 @@ const Profile = () => {
     });
 
     if (!result.cancelled) {
-      uploadProfileImage(result.uri, dispatch);
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function () {
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", result.uri, true);
+        xhr.send(null);
+      });
+      // const { name, type } = blob._data;
+      // console.log({ type });
+      uploadProfileImage(blob, dispatch);
     }
   };
 
