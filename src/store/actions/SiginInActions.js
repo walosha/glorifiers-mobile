@@ -52,9 +52,9 @@ export const uploadProfileImage = async (image, dispatch) => {
       image: Key,
     });
 
-    dispatch({ type: PROFILE_IMAGE_SUCCESSSFUL, payload: data });
+    dispatch({ type: PROFILE_IMAGE_SUCCESSSFUL, payload: Key });
   } catch (error) {
-    console.log({ error: error.response });
+    console.log({ error: error });
     // dispatch({ type: PROFILE_IMAGE_FAILED, payload: data.error });
   }
 };

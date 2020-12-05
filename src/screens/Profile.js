@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import { Buffer } from "buffer"; // import buffer
 import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../components";
@@ -28,7 +29,7 @@ const Profile = () => {
   const { image } = useSelector(({ signInScreen }) => ({
     image: signInScreen.user.image,
   }));
-
+  console.log({ image });
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -45,30 +46,13 @@ const Profile = () => {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    let { base64 } = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true,
     });
-
-    if (!result.cancelled) {
-      const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-          resolve(xhr.response);
-        };
-        xhr.onerror = function () {
-          reject(new TypeError("Network request failed"));
-        };
-        xhr.responseType = "blob";
-        xhr.open("GET", result.uri, true);
-        xhr.send(null);
-      });
-      // const { name, type } = blob._data;
-      // console.log({ type });
-      uploadProfileImage(blob, dispatch);
-    }
+    uploadProfileImage(Buffer.from(base64, "base64"), dispatch);
   };
 
   return (
