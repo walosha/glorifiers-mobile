@@ -1,14 +1,11 @@
 {
   "expo": {
-    "name": "glorifiers savings & loan app",
-    "slug": "glorifiers-savings-loan-app",
-    "description": "An on-line medical app",
+    "name": "glorifiers-savings",
+    "slug": "glorifiers-savings",
+    "description": "An savings app",
     "privacy": "unlisted",
     "sdkVersion": "39.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.6.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -17,9 +14,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#000"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

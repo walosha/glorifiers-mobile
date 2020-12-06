@@ -2,10 +2,15 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Block, Text, Button as GaButton, theme, Icon } from "galio-framework";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useDispatch, useSelector } from "react-redux";
 import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
 
-export default function FailurePayment() {
+export default function FailurePayment({ navigation }) {
+  const { narration } = useSelector(({ transferScreen }) => ({
+    narration: transferScreen.narration,
+  }));
+
   const onConfirm = () => {
     navigation.navigate("TransferToAccount");
   };
@@ -19,6 +24,7 @@ export default function FailurePayment() {
     >
       <Block middle>
         <Text size={34}>Payment Failed!</Text>
+        <Text size={19}> {narration}</Text>
       </Block>
       <Block padding={5} middle>
         <Icon

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableWithoutFeedback,
+  TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Image,
+  Clipboard,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { useSelector } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useSafeArea } from "react-native-safe-area-context";
 import { Icon, Drawer as DrawerCustomItem } from "../components/";
 import { materialTheme } from "../constants/";
@@ -39,6 +41,11 @@ function CustomDrawerContent({
     user: signInScreen.user,
     accountNumber: homeScreen.accountNumber,
   }));
+  const [copiedText, setCopiedText] = useState("");
+
+  const copyToClipboard = () => {
+    Clipboard.setString(JSON.stringify(accountNumber));
+  };
 
   return (
     <Block
@@ -57,9 +64,31 @@ function CustomDrawerContent({
           </Block>
         </TouchableWithoutFeedback>
         <Block row space="between">
-          <Text size={16} color={materialTheme.COLORS.WARNING}>
-            Account Number: {accountNumber}
-          </Text>
+          <Block row middle space="evenly">
+            <Text
+              style={{ padding: 3 }}
+              size={16}
+              color={materialTheme.COLORS.WARNING}
+            >
+              Account Number:
+            </Text>
+            <TouchableOpacity onPress={copyToClipboard}>
+              <Block style={[styles.clipboard]} row middle>
+                <MaterialCommunityIcons
+                  size={14}
+                  name="content-copy"
+                  color={materialTheme.COLORS.PRIMARY}
+                />
+                <Text
+                  style={{ padding: 3 }}
+                  size={16}
+                  color={materialTheme.COLORS.WARNING}
+                >
+                  {accountNumber}
+                </Text>
+              </Block>
+            </TouchableOpacity>
+          </Block>
           <Icon
             color={materialTheme.COLORS.PRIMARY}
             name="star"
@@ -117,6 +146,13 @@ const styles = StyleSheet.create({
   },
   profile: {
     marginBottom: theme.SIZES.BASE / 2,
+  },
+  clipboard: {
+    borderColor: materialTheme.COLORS.PRIMARY,
+    borderWidth: 0.4,
+    paddingHorizontal: 9,
+    paddingHorizontal: 2,
+    borderRadius: 5,
   },
   avatar: {
     height: 40,

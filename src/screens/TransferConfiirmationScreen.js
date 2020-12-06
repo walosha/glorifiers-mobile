@@ -2,11 +2,23 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useDispatch } from "react-redux";
+import { transferToAccount } from "../store/actions/TransferAccountAction";
 import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
-export default function TransferConfiirmationScreen({ navigation, params }) {
+
+export default function TransferConfiirmationScreen({
+  navigation,
+  params: { accountNumber, acctName, amount },
+}) {
+  const dispatch = useDispatch();
   const onConfirm = () => {
-    navigation.navigate("FailurePayment");
+    if (accountNumber && amount)
+      transferToAccount(
+        { accountNumber: parseInt(accountNumber), amount: parseInt(amount) },
+        dispatch,
+        navigation
+      );
   };
 
   return (
@@ -24,18 +36,18 @@ export default function TransferConfiirmationScreen({ navigation, params }) {
       </Block>
       <Block style={styles.card}>
         <Text size={23}>Account Name: </Text>
-        <Text size={23}> {params.number}</Text>
+        <Text size={23}> {acctName}</Text>
       </Block>
       <Block style={styles.card}>
         <Text size={23}>Account Number: </Text>
-        <Text size={23}>{params.accountNumber}</Text>
+        <Text size={23}>{accountNumber}</Text>
       </Block>
       <Block style={styles.card}>
         <Text size={23}>Amount:</Text>
         <Text size={23}>
           {" "}
           {"\u20A6"}
-          {numberWithCommas(params.amount)}
+          {numberWithCommas(amount)}
         </Text>
       </Block>
       <Block style={styles.card}>
@@ -57,12 +69,12 @@ export default function TransferConfiirmationScreen({ navigation, params }) {
         <Text size={23}>
           {" "}
           {"\u20A6"}
-          {numberWithCommas(params.amount)}
+          {numberWithCommas(amount)}
         </Text>
       </Block>
       <Block style={{ padding: 10 }} middle>
         <GaButton onPress={onConfirm} disabled={false}>
-          Confirm Transfer
+          Proceed
         </GaButton>
       </Block>
     </Block>

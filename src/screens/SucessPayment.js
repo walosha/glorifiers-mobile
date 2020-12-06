@@ -1,6 +1,7 @@
 import React from "react";
 import { Block, Text, Button as GaButton, Icon } from "galio-framework";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useDispatch, useSelector } from "react-redux";
 import { materialTheme } from "../constants";
 
 export default function SucessPayment({ navigation }) {

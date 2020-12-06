@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { Input } from "../components/";
@@ -33,7 +33,7 @@ export default function TransferToAccount({ navigation }) {
     navigation.navigate("TransferConfirmation", {
       amount,
       accountNumber,
-      number,
+      acctName: number,
     });
   };
 
@@ -48,6 +48,7 @@ export default function TransferToAccount({ navigation }) {
         <Input
           onChangeText={(text) => setAmount(text)}
           shadowless
+          keyboardType={"numeric"}
           borderless
           inputSyles={{
             borderColor: "none",
@@ -61,6 +62,7 @@ export default function TransferToAccount({ navigation }) {
           onChangeText={(text) => setAccountNumber(text)}
           shadowless
           borderless
+          keyboardType={"numeric"}
           inputSyles={{
             borderColor: "none",
             backgroundColor: "transparent",
@@ -90,7 +92,7 @@ export default function TransferToAccount({ navigation }) {
 
         <Block style={{ padding: 10 }} middle>
           <GaButton onPress={onConfirm} disabled={disabled}>
-            Confirm
+            Confirm Transfer
           </GaButton>
         </Block>
       </Block>

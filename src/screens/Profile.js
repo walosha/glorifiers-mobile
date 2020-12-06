@@ -12,12 +12,14 @@ import {
 import { Block, Text, theme } from "galio-framework";
 import { Buffer } from "buffer"; // import buffer
 import * as ImagePicker from "expo-image-picker";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../components";
 import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import { uploadProfileImage } from "../store/actions";
 import { capitalizeFirstLetter } from "../helpers";
+import { block } from "react-native-reanimated";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -29,7 +31,7 @@ const Profile = () => {
   const { image } = useSelector(({ signInScreen }) => ({
     image: signInScreen.user.image,
   }));
-  console.log({ image });
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -49,7 +51,7 @@ const Profile = () => {
     let { base64 } = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.1,
       base64: true,
     });
     uploadProfileImage(Buffer.from(base64, "base64"), dispatch);
@@ -73,6 +75,13 @@ const Profile = () => {
             <Block flex style={styles.profileCard}>
               <Block middle style={styles.avatarContainer}>
                 <TouchableOpacity onPress={pickImage}>
+                  <Block style={{ top: 0 }}>
+                    <AntDesign
+                      name="camera"
+                      color={materialTheme.COLORS.PRIMARY}
+                      size={47}
+                    />
+                  </Block>
                   <Image
                     source={{
                       uri: `https://glorifiers.s3-us-west-1.amazonaws.com/${image}`,
