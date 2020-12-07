@@ -3,7 +3,7 @@ import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import HomeScreen from "../screens/Home/Home";
 import RegisterScreen from "../screens/Register";
 import SignInScreen from "../screens/SignIn";
@@ -23,6 +23,7 @@ import GetHelpScreen from "../screens/GetHelp";
 import TicketScreen from "../screens/Ticket";
 import { Icon, Header } from "../components";
 import { materialTheme } from "../constants/";
+import { setupInterceptor } from "../services/glorifiers";
 const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
@@ -287,7 +288,10 @@ function SignInStack(props) {
   );
 }
 
-function MyTabs() {
+function MyTabs({ navigation }) {
+  const dispatch = useDispatch();
+  if (navigation !== undefined) setupInterceptor(dispatch);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

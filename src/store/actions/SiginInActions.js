@@ -39,7 +39,7 @@ export const uploadProfileImage = async (image, dispatch) => {
 
     const options = {
       method: "PUT",
-      headers: { "Content-Type": "image/png" },
+      headers: { "Content-Type": "image/jpeg" },
       data: image,
       url,
     };
@@ -54,7 +54,7 @@ export const uploadProfileImage = async (image, dispatch) => {
 
     dispatch({ type: PROFILE_IMAGE_SUCCESSSFUL, payload: Key });
   } catch (error) {
-    console.log({ error: error });
+    console.log({ error: error.response.data });
     // dispatch({ type: PROFILE_IMAGE_FAILED, payload: data.error });
   }
 };

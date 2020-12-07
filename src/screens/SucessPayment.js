@@ -1,10 +1,13 @@
 import React from "react";
 import { Block, Text, Button as GaButton, Icon } from "galio-framework";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { materialTheme } from "../constants";
 
 export default function SucessPayment({ navigation }) {
+  const { narration } = useSelector(({ transferScreen }) => ({
+    narration: transferScreen.narration,
+  }));
   const onConfirm = () => {
     navigation.navigate("Tab");
   };
@@ -18,6 +21,9 @@ export default function SucessPayment({ navigation }) {
     >
       <Block middle>
         <Text size={34}>Payment Successful!</Text>
+        <Text color={materialTheme.COLORS.SUCCESS} size={18}>
+          {narration}
+        </Text>
       </Block>
       <Block padding={5} middle>
         <Icon

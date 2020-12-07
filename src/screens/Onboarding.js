@@ -6,10 +6,12 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import AnimatedLoader from "react-native-animated-loader";
-import AsyncStorage from "@react-native-community/async-storage";
 import { connect } from "react-redux";
 import { Block, Button, Text, theme } from "galio-framework";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { materialTheme } from "../constants/";
 const { height, width } = Dimensions.get("screen");
 import { images } from "@/constants";
@@ -33,23 +35,35 @@ const Onboarding = ({ navigation }) => {
         <Block flex space="around" style={{ zIndex: 2 }}>
           <Block>
             <Block>
-              <Text color={materialTheme.COLORS.PRIMARY} size={40}>
-                Glorifiers savings & loan Mobile
+              <Text
+                style={{ fontWeight: "bold", fontFamily: "montserrat-regular" }}
+                color={materialTheme.COLORS.PRIMARY}
+                size={40}
+              >
+                Glorifiers savings & loan
               </Text>
             </Block>
             <Text size={16} color="#fff">
-              ...Payments. Bills. Instant Loans. Smart Investments. Credit
+              ...Savings. Bills. Instant Loans. Smart Investments. Credit
               Reports
             </Text>
           </Block>
-          <Block center>
+          <Block row center>
             <Button
               shadowless
               style={styles.button}
               color={materialTheme.COLORS.PRIMARY}
               onPress={() => navigation.navigate("SignIn")}
             >
-              Launch App
+              Sign In
+            </Button>
+            <Button
+              shadowless
+              style={styles.button}
+              color={materialTheme.COLORS.PRIMARY}
+              onPress={() => navigation.navigate("Register")}
+            >
+              Register
             </Button>
           </Block>
         </Block>
@@ -68,11 +82,12 @@ const styles = StyleSheet.create({
     bottom: theme.SIZES.BASE,
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
+    width: wp("45%"),
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0,
     borderRadius: 25,
+    margin: 5,
   },
   lottie: {
     width: 100,

@@ -1,9 +1,9 @@
 import {
   REGISTER_USER_SUCCESSSFUL,
-  REGISTER_SAVE,
   REGISTER_USER_FAILED,
   PASSWORD_NOT_SAME,
   RESET_REGISTER_SCREEN,
+  REGISTER_USER,
 } from "../types";
 
 const initialValue = {
@@ -15,7 +15,7 @@ export const registerReducer = (state = initialValue, action) => {
   switch (action.type) {
     case RESET_REGISTER_SCREEN:
       return (state = initialValue);
-    case REGISTER_SAVE:
+    case REGISTER_USER:
       return {
         error: "",
         isLoading: true,

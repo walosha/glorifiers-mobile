@@ -63,10 +63,10 @@ function CustomDrawerContent({
             </Text>
           </Block>
         </TouchableWithoutFeedback>
-        <Block row space="between">
+        <Block middle row space="between">
           <Block row middle space="evenly">
             <Text
-              style={{ padding: 3 }}
+              style={{ padding: 3, marginRight: 10 }}
               size={16}
               color={materialTheme.COLORS.WARNING}
             >
@@ -89,12 +89,6 @@ function CustomDrawerContent({
               </Block>
             </TouchableOpacity>
           </Block>
-          <Icon
-            color={materialTheme.COLORS.PRIMARY}
-            name="star"
-            family="MaterialIcons"
-            size={14}
-          />
         </Block>
         <Block row space="between">
           <Text size={16} color={materialTheme.COLORS.WARNING}>

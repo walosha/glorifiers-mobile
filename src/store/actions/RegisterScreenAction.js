@@ -1,5 +1,5 @@
 import {
-  REGISTER_SAVE,
+  REGISTER_USER,
   REGISTER_USER_SUCCESSSFUL,
   REGISTER_USER_FAILED,
   PASSWORD_NOT_SAME,
@@ -25,7 +25,7 @@ const registerUser = async (
   dispatch,
   navigation
 ) => {
-  dispatch({ type: RESET_REGISTER_SCREEN });
+  dispatch({ type: REGISTER_USER });
   try {
     const { data } = await glorifiers.post("/auth/create-user", {
       firstName,
@@ -38,11 +38,14 @@ const registerUser = async (
     dispatch({ type: REGISTER_USER_SUCCESSSFUL });
     navigation.navigate("SignIn");
   } catch ({ response: { data } }) {
-    dispatch({ type: LOGIN_USER_FAILED, payload: data.error });
+    const { error } = data;
+
+    // var regExp = /\(([^)]+)\)/;
+    // var matches = regExp.exec("I expect five hundred dollars ($500).");
+    // //matches[1] contains the value between the parentheses
+    // console.log(matches[1]);
+    dispatch({ type: REGISTER_USER_FAILED, payload: error.split("=")[1] });
   }
 };
-
-
-
 
 export { registerUser, userPasswordNotSame, resetRegisterScreen };

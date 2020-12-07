@@ -51,7 +51,7 @@ const Profile = () => {
     let { base64 } = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0.1,
+      quality: 1,
       base64: true,
     });
     uploadProfileImage(Buffer.from(base64, "base64"), dispatch);

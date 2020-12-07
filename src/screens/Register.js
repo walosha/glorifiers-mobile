@@ -5,13 +5,14 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
-  View,
+  Alert,
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { registerUser, userPasswordNotSame } from "../store/actions";
-import { Button, Icon, Input, Toast } from "../components/";
+import { RESET_REGISTER_SCREEN } from "../store/types";
+import { Icon, Input, Toast } from "../components/";
 import { images, materialTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
 
@@ -28,17 +29,20 @@ export default Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [isToastVisible, setToast] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { isLoading, error } = useSelector(({ signInScreen }) => signInScreen);
+  const { isLoading, error } = useSelector(
+    ({ registerScreen }) => registerScreen
+  );
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch({ type: RESET_REGISTER_SCREEN });
+  }, []);
 
   function onButnPress() {
     if (confirmPassword !== password) {
-      return setToast(true);
+      return Alert.alert("Password and confirm password NOT the same!");
     }
 
     registerUser(
@@ -55,7 +59,7 @@ export default Register = ({ navigation }) => {
           style={styles.imageBackgroundContainer}
           imageStyle={styles.imageBackground}
         >
-          <Block flex middle>
+          <Block middle>
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
                 <Block flex={0.4} middle style={styles.socialConnect}>
@@ -168,6 +172,7 @@ export default Register = ({ navigation }) => {
                         <Block width={width * 0.8}>
                           <Input
                             borderless
+                            keyboardType={"numeric"}
                             placeholder="Phone Number"
                             onChangeText={(text) => setPhoneNumber(text)}
                             iconContent={
@@ -235,21 +240,21 @@ export default Register = ({ navigation }) => {
                         </Block>
                       </Block>
                       {error ? (
-                        <Block middle>
+                        <Block style={{ backgroundColor: "#fff" }} middle>
                           <Text
                             style={{
                               paddingBottom: 4,
                               fontFamily: "montserrat-bold",
                             }}
                             size={12}
-                            color={materialTheme.COLORS.WHITE}
+                            color={materialTheme.COLORS.ERROR}
                           >
                             {error}
                           </Text>
                         </Block>
                       ) : null}
                       <Block flex center>
-                        <Button
+                        <GaButton
                           color="primary"
                           round
                           style={styles.createButton}
@@ -263,7 +268,7 @@ export default Register = ({ navigation }) => {
                           >
                             Sign Up
                           </Text>
-                        </Button>
+                        </GaButton>
                         <TouchableOpacity
                           onPress={() => navigation.navigate("SignIn")}
                         >
