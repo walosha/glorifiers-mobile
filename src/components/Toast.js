@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { Toast } from "galio-framework";
+import React from "react";
+import { Toast as NBToast } from "native-base";
+import { materialTheme } from "../constants/";
 
-export default function ToastView({ message }) {
-  const [isShow, setShow] = useState(true);
+const Toast = (text, msgType) => {
+  NBToast.show({
+    text,
+    position: "bottom",
+    type: msgType ? "danger" : "success",
+    buttonText: "Dismiss",
+    duration: 7000,
+    buttonTextStyle: { backgroundColor: materialTheme.COLORS.PRIMARY },
+    style: { backgroundColor: materialTheme.COLORS.PRIMARY },
+  });
+};
 
-  return (
-    <Toast isShow={isShow} positionIndicator="top">
-      {message}
-    </Toast>
-  );
-}
+export default Toast;

@@ -4,9 +4,9 @@ import {
   REGISTER_USER_FAILED,
   PASSWORD_NOT_SAME,
   RESET_REGISTER_SCREEN,
-  LOGIN_USER_FAILED,
 } from "../types";
 import { glorifiers } from "../../services/glorifiers";
+import { Toast } from "../../components";
 
 const resetRegisterScreen = () => (dispatch) => {
   dispatch({ type: RESET_REGISTER_SCREEN });
@@ -36,14 +36,15 @@ const registerUser = async (
     });
 
     dispatch({ type: REGISTER_USER_SUCCESSSFUL });
+    Toast("Account Created!");
     navigation.navigate("SignIn");
   } catch ({ response: { data } }) {
     const { error } = data;
+    var regExp = /\(([^)]+)\)/;
+    var matches = regExp.exec(error.split("=")[1]);
+    const val = matches[1];
+    matches.split;
 
-    // var regExp = /\(([^)]+)\)/;
-    // var matches = regExp.exec("I expect five hundred dollars ($500).");
-    // //matches[1] contains the value between the parentheses
-    // console.log(matches[1]);
     dispatch({ type: REGISTER_USER_FAILED, payload: error.split("=")[1] });
   }
 };

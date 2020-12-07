@@ -13,7 +13,7 @@ const persistConfig = {
   key: "root",
   storage: AsyncStorage,
 };
-const middlewares = [thunk, logger];
+const middlewares = [thunk];
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let store = createStore(persistedReducer, applyMiddleware(...middlewares));

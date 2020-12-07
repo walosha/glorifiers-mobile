@@ -42,7 +42,7 @@ export default Register = ({ navigation }) => {
 
   function onButnPress() {
     if (confirmPassword !== password) {
-      return Alert.alert("Password and confirm password NOT the same!");
+      return Toast("Password and Confirm password do not match!", "msgType");
     }
 
     registerUser(
@@ -63,25 +63,12 @@ export default Register = ({ navigation }) => {
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
                 <Block flex={0.4} middle style={styles.socialConnect}>
-                  <Block flex={0.5} middle>
-                    <Text
-                      style={{
-                        fontFamily: "montserrat-regular",
-                        textAlign: "center",
-                      }}
-                      color={materialTheme.COLORS.PRIMARY}
-                      size={24}
-                    >
-                      Register
-                    </Text>
-                  </Block>
-
                   <Block
                     flex={0.5}
                     row
                     middle
                     space="between"
-                    style={{ marginBottom: 18 }}
+                    style={{ marginBottom: 5 }}
                   >
                     <GaButton
                       round
@@ -119,7 +106,7 @@ export default Register = ({ navigation }) => {
                     />
                   </Block>
                 </Block>
-                <Block flex={0.1} middle>
+                <Block middle>
                   <Text
                     style={{
                       fontFamily: "montserrat-regular",
@@ -346,7 +333,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   inputIcons: {
-    marginRight: 12,
+    marginRight: 10,
     color: materialTheme.COLORS.ICON_INPUT,
   },
   inputs: {
@@ -361,7 +348,7 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25,
+    marginTop: 15,
     marginBottom: 40,
   },
   social: {

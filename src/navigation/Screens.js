@@ -13,9 +13,11 @@ import CustomDrawerContent from "./Menu";
 import ContactSupportScreen from "../screens/ContactSupport";
 import LoanScreen from "../screens/Loans";
 import FundPurseScreen from "../screens/FundPurse";
+import FundPurseConfirm from "../screens/FundPurseConfirm";
 import TransferToAccountScreeen from "../screens/TransferToAccount";
 import TransferConfiirmationScreen from "../screens/TransferConfiirmationScreen";
 import NotificationsScreen from "../screens/Notifications";
+import PayStackScreen from "../screens/Paystack";
 import SettingsScreen from "../screens/Settings";
 import SucessPaymentScreen from "../screens/SucessPayment";
 import FailurePaymentScreen from "../screens/FailurePayment";
@@ -100,6 +102,44 @@ function TransferConfiirmationStack({ route: { params } }) {
         }}
       >
         {(props) => <TransferConfiirmationScreen {...props} params={params} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+
+function PayStackScreenStack({ route: { params } }) {
+  return (
+    <Stack.Navigator initialRouteName="Ticket" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="payst"
+        options={{
+          header: () => null,
+        }}
+      >
+        {(props) => <PayStackScreen {...props} params={params} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+
+function FundPurseConfirmStack({ route: { params } }) {
+  return (
+    <Stack.Navigator initialRouteName="Ticket" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Confirm Funding"
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              back
+              white
+              navigation={navigation}
+              title="Confirm Funding to Account"
+              scene={scene}
+            />
+          ),
+        }}
+      >
+        {(props) => <FundPurseConfirm {...props} params={params} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
@@ -400,10 +440,15 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
             component={TransferConfiirmationStack}
           />
           <Stack.Screen
+            name="FundPurseConfirm"
+            component={FundPurseConfirmStack}
+          />
+          <Stack.Screen
             name="FailurePayment"
             component={FailurePaymentScreen}
           />
           <Stack.Screen name="SucessPayment" component={SucessPaymentScreen} />
+          <Stack.Screen name="paystack" component={PayStackScreenStack} />
         </Fragment>
       )}
     </Stack.Navigator>

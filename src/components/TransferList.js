@@ -9,7 +9,7 @@ export default function TransferList({ amount, description, status, date }) {
     <Block style={{ marginBottom: 2 }}>
       <Block space="around" row>
         <Text color={materialTheme.COLORS.PRIMARY}>
-          N {numberWithCommas(amount)}
+          N {numberWithCommas(String(amount))}
         </Text>
         <Text color={materialTheme.COLORS.PRIMARY}>{status}</Text>
       </Block>
