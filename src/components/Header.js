@@ -8,6 +8,10 @@ import {
   Alert,
 } from "react-native";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
 import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
@@ -87,14 +91,18 @@ const Header = ({
           onPress={() => actionPress("FundPurse")}
           style={styles.action}
         >
-          <Text style={styles.actionText}>FUND WALLET</Text>
+          <Text size={12} style={styles.actionText}>
+            FUND WALLET
+          </Text>
         </TouchableOpacity>
         <View style={{ marginHorizontal: 2 }} />
         <TouchableOpacity
           onPress={() => actionPress("TransferToAccount")}
           style={styles.action}
         >
-          <Text style={styles.actionText}>TRANSFER TO ACCOUNT</Text>
+          <Text size={12} style={styles.actionText}>
+            TRANSFER TO ACCOUNT
+          </Text>
         </TouchableOpacity>
       </Block>
     );
@@ -177,10 +185,11 @@ const styles = StyleSheet.create({
   action: {
     width: width * 0.47,
     backgroundColor: materialTheme.COLORS.LABEL,
-    height: 55,
+    height: hp("9%"),
     justifyContent: "space-evenly",
     alignItems: "center",
     borderRadius: 12,
+    textAlign: "center",
   },
   actionText: {
     margin: 4,

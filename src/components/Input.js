@@ -2,6 +2,10 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import { Input } from "galio-framework";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { materialTheme } from "../constants";
 
 const ArInput = ({
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 4,
     borderColor: materialTheme.COLORS.BORDER,
-    height: 44,
+    height: hp("6%"),
     backgroundColor: "#FFFFFF",
   },
   success: {

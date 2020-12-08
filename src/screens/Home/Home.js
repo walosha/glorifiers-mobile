@@ -1,8 +1,12 @@
 import React, { Fragment, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { Block, theme } from "galio-framework";
 import { useSelector } from "react-redux";
 import ActionButton from "./Home-section/actionButton";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import RecentTransactions from "./Home-section/recentTransactions";
 import { setAuthorizationHeader } from "../../services/glorifiers";
 
@@ -16,7 +20,7 @@ const Home = () => {
   }, [token]);
 
   return (
-    <Block style={styles.home}>
+    <ScrollView contentContainerStyle={styles.home}>
       <View
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.home}
@@ -24,13 +28,13 @@ const Home = () => {
         <ActionButton />
         <RecentTransactions />
       </View>
-    </Block>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   home: {
-    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
 });

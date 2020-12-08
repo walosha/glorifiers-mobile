@@ -6,9 +6,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { registerUser, userPasswordNotSame } from "../store/actions";
 import { RESET_REGISTER_SCREEN } from "../store/types";
@@ -53,7 +58,7 @@ export default Register = ({ navigation }) => {
 
   return (
     <DismissKeyboard>
-      <Block flex middle>
+      <ScrollView middle>
         <ImageBackground
           source={{ uri: images.registerInImg }}
           style={styles.imageBackgroundContainer}
@@ -280,15 +285,15 @@ export default Register = ({ navigation }) => {
             </Block>
           </Block>
         </ImageBackground>
-      </Block>
+      </ScrollView>
     </DismissKeyboard>
   );
 };
 
 const styles = StyleSheet.create({
   imageBackgroundContainer: {
-    width: width,
-    height: height,
+    width: wp("100%"),
+    height: hp("100%"),
     padding: 0,
     zIndex: 1,
   },
@@ -348,8 +353,8 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 15,
-    marginBottom: 40,
+    // marginTop: 15,
+    // marginBottom: 40,
   },
   social: {
     width: theme.SIZES.BASE * 3.5,

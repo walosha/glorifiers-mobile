@@ -31,7 +31,7 @@ export default function ActionButton() {
               family="Font-Awesome-5"
               color={materialTheme.COLORS.PRIMARY}
             />
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               Withdrawal
             </Text>
           </View>
@@ -43,7 +43,7 @@ export default function ActionButton() {
               name="transfer-right"
               color={materialTheme.COLORS.PRIMARY}
             />
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               Bank Transfer
             </Text>
           </View>
@@ -60,7 +60,7 @@ export default function ActionButton() {
               color={materialTheme.COLORS.PRIMARY}
             />
 
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               Bill Payment
             </Text>
           </View>
@@ -74,7 +74,7 @@ export default function ActionButton() {
               color={materialTheme.COLORS.PRIMARY}
             />
 
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               Buy Airtime
             </Text>
           </View>
@@ -90,7 +90,7 @@ export default function ActionButton() {
               color={materialTheme.COLORS.PRIMARY}
             />
 
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               History
             </Text>
           </View>
@@ -105,7 +105,7 @@ export default function ActionButton() {
               color={materialTheme.COLORS.PRIMARY}
             />
 
-            <Text size={19} color={materialTheme.COLORS.PRIMARY}>
+            <Text size={15} color={materialTheme.COLORS.PRIMARY}>
               View Dispute
             </Text>
           </View>
