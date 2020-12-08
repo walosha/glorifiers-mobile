@@ -104,21 +104,6 @@ const DrawerItem = ({ title, focused, navigation }) => {
             />
           </View>
         );
-      case "Get Help":
-        return (
-          <View style={styles.iconContainer}>
-            <Icon
-              size={16}
-              name="mail"
-              family="AntDesign"
-              color={
-                focused
-                  ? materialTheme.COLORS.PRIMARY
-                  : materialTheme.COLORS.MUTED
-              }
-            />
-          </View>
-        );
 
       case "Log Out":
         return (
@@ -143,7 +128,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
 
   return (
     <TouchableOpacity
-      style={title === "Log Out" ? { height: height * 0.4 } : { height: 55 }}
+      style={title === "Log Out" ? { height: height * 0.4 } : { height: 50 }}
       onPress={async () => {
         title === "Log Out" && dispatch({ type: LOGOUT_USER });
         navigation.navigate(title.split(" ").join(""));

@@ -21,7 +21,6 @@ const screens = [
   "Settings",
   "Contact Support",
   "My Ticket",
-  "Get Help",
   "Log Out",
 ];
 

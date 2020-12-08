@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
+import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../store/actions";
 import { RESET_SIGNIN_SCREEN } from "../store/types";
@@ -178,6 +179,11 @@ const SignInScreen = ({ navigation }) => {
                         </Block>
                       ) : null}
                       <Block center>
+                        <Loader
+                          title={`Logging with:${email}`}
+                          loading={isLoading}
+                          color="#ff66be"
+                        />
                         <Button
                           loading={isLoading}
                           color="primary"

@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, FR, Fragment } from "react";
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Platform,
   Dimensions,
-  Alert,
 } from "react-native";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
 import {
@@ -41,14 +40,14 @@ const WifiButton = ({ isWhite, style, navigation }) => (
 );
 
 const ReloadButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => {}}>
+  <View style={[styles.button, style]}>
     <Icon
       size={24}
       family="AntDesign"
       name="reload1"
       color={theme.COLORS[isWhite ? "WHITE" : "WARNING"]}
     />
-  </TouchableOpacity>
+  </View>
 );
 const Header = ({
   back,
@@ -62,10 +61,15 @@ const Header = ({
 }) => {
   const dispatch = useDispatch();
   const { balance } = useSelector(({ homeScreen }) => homeScreen);
+  const [state, setState] = useState(1);
 
   useEffect(() => {
     getWallet(dispatch);
-  }, []);
+  }, [state]);
+
+  const onReloadButtonPress = () => {
+    setState((prev) => prev + 1);
+  };
 
   const handleLeftPress = () => {
     return back ? navigation.goBack() : navigation.openDrawer();
@@ -73,10 +77,14 @@ const Header = ({
 
   const renderRight = () => {
     if (title === "")
-      return [
-        <WifiButton navigation={navigation} isWhite={white} />,
-        <ReloadButton navigation={navigation} isWhite={white} />,
-      ];
+      return (
+        <Fragment>
+          <WifiButton navigation={navigation} isWhite={white} />
+          <TouchableOpacity onPress={onReloadButtonPress}>
+            <ReloadButton navigation={navigation} isWhite={white} />
+          </TouchableOpacity>
+        </Fragment>
+      );
 
     return null;
   };

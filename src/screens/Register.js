@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "react-native-modal-loader";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -245,6 +246,11 @@ export default Register = ({ navigation }) => {
                           </Text>
                         </Block>
                       ) : null}
+                      <Loader
+                        title={`Creating account:${email}`}
+                        loading={isLoading}
+                        color="#ff66be"
+                      />
                       <Block flex center>
                         <GaButton
                           color="primary"

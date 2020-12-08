@@ -11,7 +11,6 @@ export default function FundPurse({ navigation }) {
   const [amount, setAmount] = useState(" ");
 
   const onPressBtn = () => {
-    console.log({ amount: typeof amount });
     navigation.navigate("FundPurseConfirm", { amount });
   };
   return (
@@ -25,6 +24,7 @@ export default function FundPurse({ navigation }) {
         <Input
           shadowless
           borderless
+          keyboardType={"numeric"}
           onChangeText={(text) => setAmount(text)}
           inputSyles={{
             borderColor: "none",

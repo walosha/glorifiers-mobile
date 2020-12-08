@@ -10,8 +10,6 @@ function Pay({ params: { amount }, navigation }) {
     user: signInScreen.user,
   }));
 
-  console.log({ email, phoneNumber, firstName, lastName });
-
   return (
     <PaystackWebView
       buttonText="Proceed to Payment"
