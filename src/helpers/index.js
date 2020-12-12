@@ -29,6 +29,12 @@ export const emailValidator = (email) => {
   return "";
 };
 
+export const isValidEmail = (email) => {
+  const re = /\S+@\S+\.\S+/;
+
+  return re.test(email);
+};
+
 export const typeValidator = (name, type) => {
   if (!name || name.length <= 0) {
     return `${type} cannot be empty!`;

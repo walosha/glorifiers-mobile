@@ -19,6 +19,7 @@ import TransferConfiirmationScreen from "../screens/TransferConfiirmationScreen"
 import NotificationsScreen from "../screens/Notifications";
 import PayStackScreen from "../screens/Paystack";
 import SettingsScreen from "../screens/Settings";
+import ForgetPasswordScreen from "../screens/ForgetPassword";
 import SucessPaymentScreen from "../screens/SucessPayment";
 import FailurePaymentScreen from "../screens/FailurePayment";
 import GetHelpScreen from "../screens/GetHelp";
@@ -426,6 +427,10 @@ const ScreenStack = function ({ signInScreen, token, isSignout }) {
             component={SignInStack}
           />
           <Stack.Screen name="Register" component={RegisterStack} />
+          <Stack.Screen
+            name="ForgetPassword"
+            component={ForgetPasswordScreen}
+          />
         </Fragment>
       ) : (
         <Fragment>

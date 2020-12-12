@@ -7,3 +7,4 @@ export {
 } from "./RegisterScreenAction";
 
 export { onAccountNameFetch } from "./TransferAccountAction";
+export { recoverPassword } from "./forgetPassword";

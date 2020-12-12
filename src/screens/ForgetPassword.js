@@ -10,11 +10,12 @@ import {
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../store/actions";
+import { recoverPassword } from "../store/actions";
 import { RESET_SIGNIN_SCREEN } from "../store/types";
-import { Button, Icon, Input } from "../components/";
+import { Button, Icon, Input, Toast } from "../components/";
 import { images, materialTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
+import { isValidEmail } from "../helpers";
 
 const DismissKeyboard = ({ children, navigation }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -24,19 +25,23 @@ const DismissKeyboard = ({ children, navigation }) => (
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const secondTextInput = useRef(null);
 
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector(({ signInScreen }) => signInScreen);
+  const { isLoading, error, message } = useSelector(
+    ({ forgetpasswordScreen }) => forgetpasswordScreen
+  );
+  console.log({ isLoading, error, message });
 
   useEffect(() => {
     dispatch({ type: RESET_SIGNIN_SCREEN });
   }, []);
 
   function onButnPress() {
-    dispatch({ type: "FAKE_LOGIN" });
-    signInUser({ email, password }, dispatch);
+    if (!isValidEmail(email)) {
+      Toast("Please enter a valid email address");
+      return;
+    }
+    recoverPassword(email, dispatch);
   }
 
   return (
@@ -50,62 +55,19 @@ const SignInScreen = ({ navigation }) => {
           <Block flex middle>
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
-                <Block flex={0.4} middle style={styles.socialConnect}>
-                  <Block flex={0.5} middle>
-                    <Text
-                      style={{
-                        fontFamily: "montserrat-regular",
-                        textAlign: "center",
-                      }}
-                      color={materialTheme.COLORS.PRIMARY}
-                      size={24}
-                    >
-                      Sign In
-                    </Text>
-                  </Block>
-
-                  <Block
-                    flex={0.5}
-                    row
-                    middle
-                    space="between"
-                    style={{ marginBottom: 18 }}
+                <Block flex={0.5} middle>
+                  <Text
+                    style={{
+                      fontFamily: "montserrat-regular",
+                      textAlign: "center",
+                    }}
+                    color={materialTheme.COLORS.WHITE}
+                    size={24}
                   >
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="twitter"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.TWITTER}
-                      style={[styles.social]}
-                    />
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="dribbble"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.DRIBBBLE}
-                      style={[styles.social, styles.shadow]}
-                    />
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="facebook"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.FACEBOOK}
-                      style={[styles.social, styles.shadow]}
-                    />
-                  </Block>
+                    Forgot Password
+                  </Text>
                 </Block>
+
                 <Block flex={0.1} middle>
                   <Text
                     style={{
@@ -116,7 +78,7 @@ const SignInScreen = ({ navigation }) => {
                     size={24}
                     color={materialTheme.COLORS.WHITE}
                   >
-                    Welcome and Sign In
+                    Let's recover your password
                   </Text>
                 </Block>
                 <Block flex={1} middle space="around">
@@ -144,25 +106,6 @@ const SignInScreen = ({ navigation }) => {
                             }
                           />
                         </Block>
-                        <Block width={width * 0.8}>
-                          <Input
-                            ref={secondTextInput}
-                            password
-                            borderless
-                            placeholder="Password"
-                            viewPass
-                            onChangeText={(text) => setPassword(text)}
-                            iconContent={
-                              <Icon
-                                size={16}
-                                color={materialTheme.COLORS.ICON}
-                                name="key"
-                                family="Entypo"
-                                style={styles.inputIcons}
-                              />
-                            }
-                          />
-                        </Block>
                       </Block>
                       {error ? (
                         <Block middle>
@@ -172,7 +115,7 @@ const SignInScreen = ({ navigation }) => {
                               fontFamily: "montserrat-bold",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.PRIMARY}
+                            color={"#fff"}
                           >
                             {error}
                           </Text>
@@ -196,11 +139,11 @@ const SignInScreen = ({ navigation }) => {
                             size={14}
                             color={materialTheme.COLORS.WHITE}
                           >
-                            Sign In
+                            Recover password
                           </Text>
                         </Button>
                         <TouchableOpacity
-                          onPress={() => navigation.navigate("ForgetPassword")}
+                          onPress={() => navigation.navigate("Register")}
                         >
                           <Text
                             style={{
@@ -212,7 +155,7 @@ const SignInScreen = ({ navigation }) => {
                             size={14}
                             color={materialTheme.COLORS.WHITE}
                           >
-                            Forgot Password?
+                            If you dont have an account, kindly sign up.
                           </Text>
                         </TouchableOpacity>
                       </Block>
@@ -255,24 +198,7 @@ const styles = StyleSheet.create({
   socialConnect: {
     // backgroundColor: materialTheme.COLORS.WHITE,
   },
-  socialButtons: {
-    width: 120,
-    height: 40,
-    backgroundColor: "#fff",
-    shadowColor: materialTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-  },
-  socialTextButtons: {
-    color: materialTheme.COLORS.PRIMARY,
-    fontWeight: "800",
-    fontSize: 14,
-  },
+
   inputIcons: {
     marginRight: 12,
     color: materialTheme.COLORS.PRIMARY,

@@ -30,3 +30,10 @@ export {
   TRANSFER_TO_ACCOUNT_FAILED,
   RESET_SCREEN,
 } from "./TransferAccountTypes";
+
+export {
+  RESET_PASSWORD_SCREEN,
+  RESET_PASSWORD_SUCCESSFUL,
+  RESET_PASSWORD_FAILED,
+  LOADING_RESET_PASSWORD,
+} from "./ForgetPasswordType";

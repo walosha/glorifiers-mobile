@@ -78,12 +78,12 @@ const Header = ({
   const renderRight = () => {
     if (title === "")
       return (
-        <Fragment>
+        <Block row>
           <WifiButton navigation={navigation} isWhite={white} />
           <TouchableOpacity onPress={onReloadButtonPress}>
             <ReloadButton navigation={navigation} isWhite={white} />
           </TouchableOpacity>
-        </Fragment>
+        </Block>
       );
 
     return null;

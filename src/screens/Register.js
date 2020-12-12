@@ -233,7 +233,12 @@ export default Register = ({ navigation }) => {
                         </Block>
                       </Block>
                       {error ? (
-                        <Block style={{ backgroundColor: "#fff" }} middle>
+                        <Block
+                          style={{
+                            backgroundColor: materialTheme.COLORS.PRIMARY,
+                          }}
+                          middle
+                        >
                           <Text
                             style={{
                               paddingBottom: 4,
@@ -345,7 +350,7 @@ const styles = StyleSheet.create({
   },
   inputIcons: {
     marginRight: 10,
-    color: materialTheme.COLORS.ICON_INPUT,
+    color: materialTheme.COLORS.PRIMARY,
   },
   inputs: {
     borderWidth: 1,
