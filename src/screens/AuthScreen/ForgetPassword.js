@@ -10,12 +10,13 @@ import {
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
-import { recoverPassword } from "../store/actions";
-import { RESET_SIGNIN_SCREEN } from "../store/types";
-import { Button, Icon, Input, Toast } from "../components/";
-import { images, materialTheme } from "../constants";
+import { recoverPassword } from "../../store/actions";
+import { RESET_SIGNIN_SCREEN } from "../../store/types";
+import { Button, Icon, Input, Toast } from "../../components/";
+import { images, materialTheme } from "../../constants";
 const { width, height } = Dimensions.get("screen");
-import { isValidEmail } from "../helpers";
+import { isValidEmail } from "../../helpers";
+import styles from "./authStyles";
 
 const DismissKeyboard = ({ children, navigation }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -23,7 +24,7 @@ const DismissKeyboard = ({ children, navigation }) => (
   </TouchableWithoutFeedback>
 );
 
-const SignInScreen = ({ navigation }) => {
+const ForgetPasswordSreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
 
   const dispatch = useDispatch();
@@ -171,60 +172,4 @@ const SignInScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  imageBackgroundContainer: {
-    width: width,
-    height: height,
-    padding: 0,
-    zIndex: 1,
-  },
-  imageBackground: {
-    width: width,
-    height: height,
-  },
-  registerContainer: {
-    marginTop: 55,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.8 : height * 0.8,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-    overflow: "hidden",
-  },
-  socialConnect: {
-    // backgroundColor: materialTheme.COLORS.WHITE,
-  },
-
-  inputIcons: {
-    marginRight: 12,
-    color: materialTheme.COLORS.PRIMARY,
-  },
-  inputs: {
-    borderWidth: 1,
-    borderColor: "#E3E3E3",
-    borderRadius: 21.5,
-  },
-  passwordCheck: {
-    paddingLeft: 2,
-    paddingTop: 6,
-    paddingBottom: 15,
-  },
-  createButton: {
-    width: width * 0.5,
-    marginTop: 25,
-    marginBottom: 40,
-  },
-  social: {
-    width: theme.SIZES.BASE * 3.5,
-    height: theme.SIZES.BASE * 3.5,
-    borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center",
-    marginHorizontal: 10,
-  },
-});
-
-export default SignInScreen;
+export default ForgetPasswordSreen;

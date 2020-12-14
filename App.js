@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Platform, StatusBar, Image, AppState } from "react-native";
 import { PersistGate } from "redux-persist/integration/react";
+import { Host } from "react-native-portalize";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
@@ -86,7 +87,9 @@ const App = ({ skipLoadingScreen }) => {
               <GalioProvider theme={materialTheme}>
                 <Block flex>
                   {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-                  <Screens />
+                  <Host>
+                    <Screens />
+                  </Host>
                 </Block>
               </GalioProvider>
             </NavigationContainer>

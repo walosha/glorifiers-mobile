@@ -32,8 +32,15 @@ function Pay({ params: { amount }, navigation }) {
       //   flex: 1,
       //   justifyContent: "center",
       //   alignItems: "center",
-      // }}
-      refNumber={Date.now() + "" + Math.floor(Math.random() * 1000000 + 1)}
+      // }}    // SafeAreaViewContainer={{
+      //   flex: 1,
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      // }}    // SafeAreaViewContainer={{
+      //   flex: 1,
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      // }}    refNumber={Date.now() + "" + Math.floor(Math.random() * 1000000 + 1)}
       SafeAreaViewContainer={{ marginTop: 5 }}
       SafeAreaViewContainerModal={{ marginTop: 5 }}
       onCancel={(e) => {

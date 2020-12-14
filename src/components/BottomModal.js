@@ -1,37 +1,26 @@
 import React, { useRef } from "react";
-import { View, Button } from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
+import { Dimensions } from "react-native";
+import { Portal } from "react-native-portalize";
+import { Modalize } from "react-native-modalize";
 
-export default function Example() {
-  const refRBSheet = useRef();
+const { height: initialHeight } = Dimensions.get("window");
+
+const App = ({ children, onModalOpen }) => {
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
+  onModalOpen(onOpen);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#000",
-      }}
-    >
-      <Button
-        title="OPEN BOTTOM SHEET"
-        onPress={() => refRBSheet.current.open()}
-      />
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "transparent",
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-        }}
-      >
-        <YourOwnComponent />
-      </RBSheet>
-    </View>
+    <Portal>
+      <Modalize modalHeight={initialHeight / 3} ref={modalizeRef}>
+        {children}
+      </Modalize>
+    </Portal>
   );
-}
+};
+
+export default App;

@@ -10,10 +10,12 @@ import {
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../store/actions";
-import { RESET_SIGNIN_SCREEN } from "../store/types";
-import { Button, Icon, Input } from "../components/";
-import { images, materialTheme } from "../constants";
+import { signInUser } from "../../store/actions";
+import { RESET_SIGNIN_SCREEN } from "../../store/types";
+import { Button, Icon, Input } from "../../components";
+import { images, materialTheme } from "../../constants";
+import styles from "./authStyles";
+
 const { width, height } = Dimensions.get("screen");
 
 const DismissKeyboard = ({ children, navigation }) => (
@@ -227,78 +229,5 @@ const SignInScreen = ({ navigation }) => {
     </DismissKeyboard>
   );
 };
-
-const styles = StyleSheet.create({
-  imageBackgroundContainer: {
-    width: width,
-    height: height,
-    padding: 0,
-    zIndex: 1,
-  },
-  imageBackground: {
-    width: width,
-    height: height,
-  },
-  registerContainer: {
-    marginTop: 55,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.8 : height * 0.8,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-    overflow: "hidden",
-  },
-  socialConnect: {
-    // backgroundColor: materialTheme.COLORS.WHITE,
-  },
-  socialButtons: {
-    width: 120,
-    height: 40,
-    backgroundColor: "#fff",
-    shadowColor: materialTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-  },
-  socialTextButtons: {
-    color: materialTheme.COLORS.PRIMARY,
-    fontWeight: "800",
-    fontSize: 14,
-  },
-  inputIcons: {
-    marginRight: 12,
-    color: materialTheme.COLORS.PRIMARY,
-  },
-  inputs: {
-    borderWidth: 1,
-    borderColor: "#E3E3E3",
-    borderRadius: 21.5,
-  },
-  passwordCheck: {
-    paddingLeft: 2,
-    paddingTop: 6,
-    paddingBottom: 15,
-  },
-  createButton: {
-    width: width * 0.5,
-    marginTop: 25,
-    marginBottom: 40,
-  },
-  social: {
-    width: theme.SIZES.BASE * 3.5,
-    height: theme.SIZES.BASE * 3.5,
-    borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center",
-    marginHorizontal: 10,
-  },
-});
 
 export default SignInScreen;
