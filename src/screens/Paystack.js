@@ -1,6 +1,6 @@
 import React from "react";
 import PaystackWebView from "react-native-paystack-webview";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { materialTheme } from "../constants";
 
 function Pay({ params: { amount }, navigation }) {
@@ -23,24 +23,12 @@ function Pay({ params: { amount }, navigation }) {
       }}
       showPayButton={true}
       paystackKey="pk_test_844e11c5109c2aa907273a04855f8bd3b41312ff"
-      amount={amount}
+      amount={parseFloat(amount).toFixed(2)}
       billingEmail={email}
       billingMobile={phoneNumber}
       billingName={`${firstName}  ${lastName}`}
       ActivityIndicatorColor={materialTheme.COLORS.PRIMARY}
-      // SafeAreaViewContainer={{
-      //   flex: 1,
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}    // SafeAreaViewContainer={{
-      //   flex: 1,
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}    // SafeAreaViewContainer={{
-      //   flex: 1,
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}    refNumber={Date.now() + "" + Math.floor(Math.random() * 1000000 + 1)}
+      refNumber={Date.now() + Math.floor(Math.random() * 100000 + 1)}
       SafeAreaViewContainer={{ marginTop: 5 }}
       SafeAreaViewContainerModal={{ marginTop: 5 }}
       onCancel={(e) => {

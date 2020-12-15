@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Dimensions, StyleSheet, FlatList } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { Block, Text } from "galio-framework";
 import TransferList from "../../../components/TransferList";

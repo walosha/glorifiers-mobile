@@ -1,14 +1,10 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { Block, theme } from "galio-framework";
 import { useSelector } from "react-redux";
 import ActionButton from "./Home-section/actionButton";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import RecentTransactions from "./Home-section/recentTransactions";
 import { setAuthorizationHeader } from "../../services/glorifiers";
+import WithdrawalModal from "./Home-section/withdrawalModal";
 
 const Home = () => {
   const { token } = useSelector(({ signInScreen }) => ({
@@ -18,6 +14,11 @@ const Home = () => {
   useEffect(() => {
     setAuthorizationHeader(token);
   }, [token]);
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.home}>
@@ -25,8 +26,9 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.home}
       >
-        <ActionButton />
+        <ActionButton onOpen={onOpen} />
         <RecentTransactions />
+        <WithdrawalModal modalizeRef={modalizeRef} />
       </View>
     </ScrollView>
   );

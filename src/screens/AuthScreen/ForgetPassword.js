@@ -7,7 +7,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import { Block, Text, Button as GaButton, theme } from "galio-framework";
+import { Block, Text } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
 import { recoverPassword } from "../../store/actions";

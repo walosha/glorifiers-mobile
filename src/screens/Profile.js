@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  View,
   StyleSheet,
   Dimensions,
   ScrollView,
@@ -8,7 +9,9 @@ import {
   Platform,
   Alert,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Block, Text, theme } from "galio-framework";
 import { Buffer } from "buffer"; // import buffer
 import * as ImagePicker from "expo-image-picker";
@@ -19,10 +22,43 @@ import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import { uploadProfileImage } from "../store/actions";
 import { capitalizeFirstLetter } from "../helpers";
-import { block } from "react-native-reanimated";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
+
+const data = [
+  {
+    id: "1",
+    icon: "account",
+    description: "Profile Details",
+  },
+  {
+    id: "2",
+    icon: "file-cabinet",
+    description: "Transactions",
+  },
+  {
+    id: "3",
+    icon: "account-multiple-plus-outline",
+    description: "Invite a Friend",
+  },
+  {
+    id: "4",
+    icon: "credit-card-plus-outline",
+    description: "Bank and card details",
+  },
+  {
+    id: "5",
+    icon: "fingerprint",
+    description: "Enable Fingerprint",
+  },
+  {
+    id: "6",
+    color: true,
+    icon: "logout",
+    description: "Log out",
+  },
+];
 
 const Profile = () => {
   const { user } = useSelector(({ signInScreen }) => signInScreen);
@@ -75,13 +111,6 @@ const Profile = () => {
             <Block flex style={styles.profileCard}>
               <Block middle style={styles.avatarContainer}>
                 <TouchableOpacity onPress={pickImage}>
-                  <Block style={{ top: 0 }}>
-                    <AntDesign
-                      name="camera"
-                      color={materialTheme.COLORS.PRIMARY}
-                      size={47}
-                    />
-                  </Block>
                   <Image
                     source={{
                       uri: `https://glorifiers.s3-us-west-1.amazonaws.com/${image}`,
@@ -99,11 +128,13 @@ const Profile = () => {
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                     Ikorodu Lagos, NG
                   </Text>
-                </Block>
-                <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                  <Block style={styles.divider} />
-                </Block>
-                <Block middle>
+                  <Text
+                    size={16}
+                    color="#525F7F"
+                    style={{ textAlign: "center" }}
+                  >
+                    {user.email}
+                  </Text>
                   <Text
                     size={16}
                     color="#525F7F"
@@ -111,49 +142,33 @@ const Profile = () => {
                   >
                     {user.phoneNumber}
                   </Text>
-                  <Button
-                    color="transparent"
-                    textStyle={{
-                      color: "#233DD2",
-                      fontWeight: "500",
-                      fontSize: 16,
-                    }}
-                  >
-                    {user.email}
-                  </Button>
                 </Block>
-                <Block row space="between">
-                  <Text
-                    bold
-                    size={16}
-                    color="#525F7F"
-                    style={{ marginTop: 12 }}
-                  >
-                    Transactions
-                  </Text>
-                  <Button
-                    small
-                    color="transparent"
-                    textStyle={{
-                      color: "#5E72E4",
-                      fontSize: 12,
-                      marginLeft: 24,
-                    }}
-                  >
-                    View all
-                  </Button>
+                <Block middle style={{ marginTop: 30, marginBottom: 6 }}>
+                  <Block style={styles.divider} />
                 </Block>
                 <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-                  <Block row space="between" style={{ flexWrap: "wrap" }}>
-                    {/* {Images.Viewed.map((img, imgIndex) => (
-                        <Image
-                          source={{ uri: img }}
-                          key={`viewed-${img}`}
-                          resizeMode="cover"
-                          style={styles.thumb}
-                        />
-                      ))} */}
-                  </Block>
+                  <FlatList
+                    style={styles.notificationList}
+                    enableEmptySections={true}
+                    data={data}
+                    keyExtractor={(item) => {
+                      return item.id;
+                    }}
+                    renderItem={({ item }) => {
+                      return (
+                        <TouchableOpacity style={styles.notificationBox}>
+                          <MaterialCommunityIcons
+                            size={35}
+                            name={item.icon}
+                            color={item.color ? "red" : "#0d47a1"}
+                          />
+                          <Text style={styles.description}>
+                            {item.description}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    }}
+                  />
                 </Block>
               </Block>
             </Block>
@@ -214,6 +229,22 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 1,
     borderColor: "#E9ECEF",
+  },
+  notificationList: {
+    marginTop: 20,
+    padding: 10,
+  },
+  notificationBox: {
+    padding: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    flexDirection: "row",
+    borderRadius: 10,
+  },
+  description: {
+    fontSize: 18,
+    color: "#0d47a1",
+    marginLeft: 10,
   },
   thumb: {
     borderRadius: 4,

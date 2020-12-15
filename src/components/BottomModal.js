@@ -3,20 +3,16 @@ import { Dimensions } from "react-native";
 import { Portal } from "react-native-portalize";
 import { Modalize } from "react-native-modalize";
 
-const { height: initialHeight } = Dimensions.get("window");
-
-const App = ({ children, onModalOpen }) => {
-  const modalizeRef = useRef(null);
-
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
-
-  onModalOpen(onOpen);
-
+const App = ({ children, modalizeRef }) => {
   return (
     <Portal>
-      <Modalize modalHeight={initialHeight / 3} ref={modalizeRef}>
+      <Modalize
+        disableScrollIfPossible
+        adjustToContentHeight
+        keyboardAvoidingOffset={100}
+        scrollViewProps={{ keyboardShouldPersistTaps: "handled" }}
+        ref={modalizeRef}
+      >
         {children}
       </Modalize>
     </Portal>

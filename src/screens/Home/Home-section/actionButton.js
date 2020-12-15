@@ -10,20 +10,27 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Button as GaButton, Text, theme, Icon } from "galio-framework";
+import { Text, theme, Icon } from "galio-framework";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { materialTheme } from "../../../constants";
 const { width, height } = Dimensions.get("screen");
 
-export default function ActionButton() {
+export default function ActionButton({ onOpen }) {
+  function onWithdrawalBtnPress() {
+    onOpen();
+  }
+
   function onActionBtnPress() {
-    Alert.alert("Coming Soon!");
+    Alert.alert("Coming soon!");
   }
 
   return (
     <View style={styles.actionContainer}>
       <View style={styles.groupActionContainer}>
-        <TouchableOpacity style={styles.actionBtn} onPress={onActionBtnPress}>
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={onWithdrawalBtnPress}
+        >
           <View style={styles.btn}>
             <Icon
               size={34}
