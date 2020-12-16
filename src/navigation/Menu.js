@@ -18,7 +18,6 @@ const screens = [
   "Home",
   "Loan Application",
   "Notifications",
-  "Settings",
   "Contact Support",
   "My Ticket",
   "Log Out",

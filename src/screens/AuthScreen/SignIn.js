@@ -182,7 +182,7 @@ const SignInScreen = ({ navigation }) => {
                       ) : null}
                       <Block center>
                         <Loader
-                          title={`Logging with:${email}`}
+                          title={`Logging In`}
                           loading={isLoading}
                           color="#ff66be"
                         />

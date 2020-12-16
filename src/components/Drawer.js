@@ -57,22 +57,6 @@ const DrawerItem = ({ title, focused, navigation }) => {
             />
           </View>
         );
-      case "Settings":
-        return (
-          <View style={styles.iconContainer}>
-            <Icon
-              size={16}
-              name="setting"
-              family="AntDesign"
-              color={
-                focused
-                  ? materialTheme.COLORS.PRIMARY
-                  : materialTheme.COLORS.MUTED
-              }
-            />
-          </View>
-        );
-
       case "Contact Support":
         return (
           <View style={styles.iconContainer}>

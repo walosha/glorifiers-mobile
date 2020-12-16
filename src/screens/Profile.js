@@ -10,14 +10,13 @@ import {
   Alert,
   TouchableOpacity,
   FlatList,
+  Switch,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Block, Text, theme } from "galio-framework";
 import { Buffer } from "buffer"; // import buffer
 import * as ImagePicker from "expo-image-picker";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../components";
 import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import { uploadProfileImage } from "../store/actions";
@@ -60,8 +59,9 @@ const data = [
   },
 ];
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const { user } = useSelector(({ signInScreen }) => signInScreen);
+  const [fingerPrintEnabled, setFingerPrintEnabled] = useState(null);
 
   const dispatch = useDispatch();
   const { image } = useSelector(({ signInScreen }) => ({
@@ -122,7 +122,7 @@ const Profile = () => {
               <Block flex>
                 <Block middle style={styles.nameInfo}>
                   <Text bold size={28} color={materialTheme.COLORS.PRIMARY}>
-                    {capitalizeFirstLetter(user.firstName)}
+                    {capitalizeFirstLetter(user.firstName)}{" "}
                     {capitalizeFirstLetter(user.lastName)}
                   </Text>
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
@@ -147,6 +147,13 @@ const Profile = () => {
                   <Block style={styles.divider} />
                 </Block>
                 <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
+                  <Text
+                    size={22}
+                    color={materialTheme.COLORS.PRIMARY}
+                    style={{ textAlign: "center", fontWeight: "bold" }}
+                  >
+                    My Account
+                  </Text>
                   <FlatList
                     style={styles.notificationList}
                     enableEmptySections={true}
@@ -156,15 +163,69 @@ const Profile = () => {
                     }}
                     renderItem={({ item }) => {
                       return (
-                        <TouchableOpacity style={styles.notificationBox}>
-                          <MaterialCommunityIcons
-                            size={35}
-                            name={item.icon}
-                            color={item.color ? "red" : "#0d47a1"}
-                          />
-                          <Text style={styles.description}>
-                            {item.description}
-                          </Text>
+                        <TouchableOpacity
+                          onPress={() =>
+                            item.color &&
+                            Alert.alert(
+                              capitalizeFirstLetter(user.firstName),
+                              "Are you sure you want log out?",
+                              [
+                                {
+                                  text: "Cancel",
+                                  onPress: () => {},
+                                  style: "cancel",
+                                },
+                                {
+                                  text: "Logout",
+                                  onPress: () =>
+                                    dispatch({ type: "LOGOUT_USER" }),
+                                },
+                              ]
+                            )
+                          }
+                          style={styles.notificationBox}
+                        >
+                          <Block row middle>
+                            <MaterialCommunityIcons
+                              size={35}
+                              name={item.icon}
+                              color={
+                                item.color
+                                  ? "red"
+                                  : materialTheme.COLORS.PRIMARY
+                              }
+                            />
+                            <Text
+                              style={[
+                                styles.description,
+                                {
+                                  color: item.color
+                                    ? "red"
+                                    : materialTheme.COLORS.PRIMARY,
+                                },
+                              ]}
+                            >
+                              {item.description}
+                            </Text>
+                          </Block>
+                          {item.icon === "fingerprint" && (
+                            <Switch
+                              trackColor={{
+                                false: "#767577",
+                                true: "#767577",
+                              }}
+                              thumbColor={
+                                fingerPrintEnabled
+                                  ? materialTheme.COLORS.PRIMARY
+                                  : "#f4f3f4"
+                              }
+                              ios_backgroundColor="#3e3e3e"
+                              onValueChange={(val) =>
+                                setFingerPrintEnabled(val)
+                              }
+                              value={fingerPrintEnabled}
+                            />
+                          )}
                         </TouchableOpacity>
                       );
                     }}
@@ -231,19 +292,23 @@ const styles = StyleSheet.create({
     borderColor: "#E9ECEF",
   },
   notificationList: {
-    marginTop: 20,
-    padding: 10,
+    marginVertical: 20,
+    padding: 13,
   },
   notificationBox: {
-    padding: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    justifyContent: "space-between",
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 11,
     flexDirection: "row",
     borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: materialTheme.COLORS.PLACEHOLDER,
   },
   description: {
     fontSize: 18,
-    color: "#0d47a1",
+    color: materialTheme.COLORS.PRIMARY,
     marginLeft: 10,
   },
   thumb: {

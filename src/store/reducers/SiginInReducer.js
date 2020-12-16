@@ -26,7 +26,6 @@ const initialValue = {
 };
 
 export const signInReducer = (state = initialValue, action) => {
-  console.log("signInReducer", action.payload);
   switch (action.type) {
     case RESET_SIGNIN_SCREEN:
       return (state = initialValue);

@@ -20,7 +20,6 @@ import TransferToAccountScreeen from "../screens/TransferToAccount";
 import TransferConfiirmationScreen from "../screens/TransferConfiirmationScreen";
 import NotificationsScreen from "../screens/Notifications";
 import PayStackScreen from "../screens/Paystack";
-import SettingsScreen from "../screens/Settings";
 import SucessPaymentScreen from "../screens/SucessPayment";
 import FailurePaymentScreen from "../screens/FailurePayment";
 import GetHelpScreen from "../screens/GetHelp";
@@ -183,34 +182,10 @@ function LoanStack(props) {
   );
 }
 
-function SettingsStack(props) {
-  return (
-    <Stack.Navigator
-      initialRouteName="Settings"
-      mode="card"
-      headerMode="screen"
-    >
-      <Stack.Screen
-        name="Notifications"
-        component={SettingsScreen}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              white
-              navigation={navigation}
-              title="Settings"
-              scene={scene}
-            />
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
 function GetHelpStack(props) {
   return (
     <Stack.Navigator
-      initialRouteName="Settings"
+      initialRouteName="GetHelpStack"
       mode="card"
       headerMode="screen"
     >
@@ -400,7 +375,6 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="LoanApplication" component={LoanStack} />
       <Drawer.Screen name="Notifications" component={NotificationsStack} />
-      <Drawer.Screen name="Settings" component={SettingsStack} />
       <Drawer.Screen name="ContactSupport" component={ContactSupportStack} />
       <Drawer.Screen name="MyTicket" component={TicketStack} />
       <Drawer.Screen name="GetHelp" component={GetHelpStack} />

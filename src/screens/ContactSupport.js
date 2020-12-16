@@ -12,7 +12,7 @@ import { materialTheme } from "../constants";
 
 export default function ContactSupport() {
   const sendMsgToWhatsapp = () => {
-    Linking.openURL("http://wa.me/08109780998");
+    Linking.openURL("http://wa.me/2348109780998");
   };
 
   const sendMsgToMail = () => {

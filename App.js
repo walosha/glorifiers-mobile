@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Platform, StatusBar, Image, AppState } from "react-native";
+import { Platform, StatusBar, Image, AppState, Alert } from "react-native";
 import { PersistGate } from "redux-persist/integration/react";
+import * as LocalAuthentication from "expo-local-authentication";
 import { Host } from "react-native-portalize";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -13,6 +14,7 @@ import { images, materialTheme } from "./src/constants";
 import { store, persistor } from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./src/navigation/Screens";
+import { isAuthenticated } from "./src/services/auth/fingerprintAuthentication";
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
 enableScreens();
@@ -30,7 +32,69 @@ function cacheImages(images) {
   });
 }
 
+const options = {
+  promptMessage: "Scan your finger.",
+  cancelLabel: "Cancel",
+};
+
 const App = ({ skipLoadingScreen }) => {
+  const [compatible, setCompatible] = useState(null);
+  const [isFingerprintsAvail, setFingerprintsAvail] = useState(null);
+  const [result, setResult] = useState();
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        "montserrat-regular": require("./src/assets/fonts/Montserrat-Regular.ttf"),
+        "montserrat-bold": require("./src/assets/fonts/Montserrat-Bold.ttf"),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    // checkDeviceForHardware();
+    // checkForFingerprints();
+    // showAndroidAlert();
+  }, []);
+
+  // const checkDeviceForHardware = async () => {
+  //   let compatible = await LocalAuthentication.hasHardwareAsync();
+  //   setCompatible(compatible);
+  // };
+
+  // const checkForFingerprints = async () => {
+  //   let fingerprints = await LocalAuthentication.isEnrolledAsync();
+  //   setFingerprintsAvail(fingerprints);
+  // };
+
+  // const scanFingerprint = async () => {
+  //   let result = await LocalAuthentication.authenticateAsync(options);
+  //   console.log("Scan Result:", result);
+  //   setResult(result);
+  // };
+
+  // const showAndroidAlert = () => {
+  //   Alert.alert(
+  //     "Fingerprint Scan",
+  //     "Place your finger over the touch sensor and press scan.",
+  //     [
+  //       {
+  //         text: "Scan",
+  //         onPress: () => {
+  //           scanFingerprint();
+  //         },
+  //       },
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel"),
+  //         style: "cancel",
+  //       },
+  //     ]
+  //   );
+  // };
+
   setFocusHandler((handleFocus) => {
     const handleAppStateChange = (appState) => {
       if (appState === "active") {
@@ -58,17 +122,6 @@ const App = ({ skipLoadingScreen }) => {
   const _handleFinishLoading = () => {
     setIsLoadingComplete(true);
   };
-
-  useEffect(() => {
-    async function loadFont() {
-      await Font.loadAsync({
-        Roboto: require("native-base/Fonts/Roboto.ttf"),
-        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-        "montserrat-regular": require("./src/assets/fonts/Montserrat-Regular.ttf"),
-        "montserrat-bold": require("./src/assets/fonts/Montserrat-Bold.ttf"),
-      });
-    }
-  }, []);
 
   if (!isLoadingComplete && !skipLoadingScreen) {
     return (
