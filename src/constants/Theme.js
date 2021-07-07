@@ -22,9 +22,11 @@ export default {
     BLOCK: "#E7E7E7",
     ICON: "#4A4A4A",
     TEXT: "#FFF",
+    BLACK: "#000",
   },
 
   SIZES: {
     BLOCK_SHADOW_RADIUS: 2,
+    BASE: 25,
   },
 };

@@ -44,7 +44,6 @@ const registerUser = async (
     var matches = regExp.exec(error.split("=")[1]);
     const val = matches[1];
     matches.split;
-
     dispatch({ type: REGISTER_USER_SUCCESSSFUL });
     dispatch({ type: REGISTER_USER_FAILED, payload: error.split("=")[1] });
   }

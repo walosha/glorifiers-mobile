@@ -89,7 +89,7 @@ export default function ActionButton({ onOpen }) {
       </View>
       <View style={styles.groupActionContainer}>
         <TouchableOpacity style={styles.actionBtn} onPress={onActionBtnPress}>
-          <View style={styles.btn}>
+          <View style={[styles.btn, { alignContent: "flex-start" }]}>
             <Icon
               size={34}
               family="Fontisto"

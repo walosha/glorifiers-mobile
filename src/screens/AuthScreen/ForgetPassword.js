@@ -7,12 +7,12 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import { Block, Text } from "galio-framework";
+import { Block, Text, Button } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
 import { recoverPassword } from "../../store/actions";
-import { RESET_SIGNIN_SCREEN } from "../../store/types";
-import { Button, Icon, Input, Toast } from "../../components/";
+import { RESET_PASSWORD_SCREEN } from "../../store/types";
+import { Icon, Input, Toast } from "../../components/";
 import { images, materialTheme } from "../../constants";
 const { width, height } = Dimensions.get("screen");
 import { isValidEmail } from "../../helpers";
@@ -31,10 +31,9 @@ const ForgetPasswordSreen = ({ navigation }) => {
   const { isLoading, error, message } = useSelector(
     ({ forgetpasswordScreen }) => forgetpasswordScreen
   );
-  console.log({ isLoading, error, message });
 
   useEffect(() => {
-    dispatch({ type: RESET_SIGNIN_SCREEN });
+    dispatch({ type: RESET_PASSWORD_SCREEN });
   }, []);
 
   function onButnPress() {
@@ -47,37 +46,35 @@ const ForgetPasswordSreen = ({ navigation }) => {
 
   return (
     <DismissKeyboard>
-      <Block flex middle>
+      <Block style={{ marginTop: 39 }} flex center>
         <ImageBackground
-          source={{ uri: images.signInImg }}
+          // source={{ uri: images.signInImg }}
           style={styles.imageBackgroundContainer}
           imageStyle={styles.imageBackground}
         >
-          <Block flex middle>
+          <Block style={styles.overlay} flex center>
             <Block style={styles.registerContainer}>
-              <Block flex space="evenly">
-                <Block flex={0.5} middle>
+              <Block flex>
+                <Block>
                   <Text
                     style={{
                       fontFamily: "montserrat-regular",
-                      textAlign: "center",
                     }}
-                    color={materialTheme.COLORS.WHITE}
+                    color={materialTheme.COLORS.PRIMARY}
                     size={24}
                   >
                     Forgot Password
                   </Text>
                 </Block>
 
-                <Block flex={0.1} middle>
+                <Block>
                   <Text
                     style={{
                       fontFamily: "montserrat-regular",
-                      textAlign: "center",
                     }}
                     muted
                     size={24}
-                    color={materialTheme.COLORS.WHITE}
+                    color={materialTheme.COLORS.BLACK}
                   >
                     Let's recover your password
                   </Text>
@@ -86,7 +83,7 @@ const ForgetPasswordSreen = ({ navigation }) => {
                   <Block center flex={0.9}>
                     <Block space="around">
                       <Block middle style={{ marginBottom: 15 }}>
-                        <Block width={width * 0.8} style={{ marginBottom: 5 }}>
+                        <Block width={width * 0.9} style={{ marginBottom: 5 }}>
                           <Input
                             onSubmitEditing={() => {
                               //secondTextInput.current.focus();
@@ -124,15 +121,14 @@ const ForgetPasswordSreen = ({ navigation }) => {
                       ) : null}
                       <Block center>
                         <Loader
-                          title={`Logging with:${email}`}
+                          title={`Loading...`}
                           loading={isLoading}
                           color="#ff66be"
                         />
                         <Button
-                          loading={isLoading}
                           color="primary"
                           round
-                          style={styles.createButton}
+                          style={[styles.createButton, { marginBottom: 10 }]}
                           onPress={onButnPress}
                         >
                           <Text
@@ -154,9 +150,26 @@ const ForgetPasswordSreen = ({ navigation }) => {
                               textDecorationLine: "underline",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.WHITE}
+                            color={materialTheme.COLORS.PRIMARY}
                           >
                             If you dont have an account, kindly sign up.
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate("SignIn")}
+                          style={{ marginVertical: 7 }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: "montserrat-bold",
+                              textDecorationColor: materialTheme.COLORS.PRIMARY,
+                              textDecorationStyle: "solid",
+                              textDecorationLine: "underline",
+                            }}
+                            size={14}
+                            color={materialTheme.COLORS.PRIMARY}
+                          >
+                            Kindly Sign In Here
                           </Text>
                         </TouchableOpacity>
                       </Block>

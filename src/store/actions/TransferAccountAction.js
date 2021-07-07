@@ -26,7 +26,6 @@ export const transferToAccount = async (
   navigation
 ) => {
   dispatch({ type: RESET_SCREEN });
-  console.log({ data: "wale" });
   try {
     const {
       data: { data },

@@ -36,7 +36,6 @@ const options = {
   promptMessage: "Scan your finger.",
   cancelLabel: "Cancel",
 };
-
 const App = ({ skipLoadingScreen }) => {
   const [compatible, setCompatible] = useState(null);
   const [isFingerprintsAvail, setFingerprintsAvail] = useState(null);

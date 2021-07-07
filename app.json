@@ -6,7 +6,7 @@
     "privacy": "unlisted",
     "sdkVersion": "39.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.6.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "splash": {
@@ -14,14 +14,17 @@
       "resizeMode": "cover",
       "backgroundColor": "#000"
     },
+
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "permissions": [],
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#fff"
       },
       "package": "com.walosha.glorifierssavingsloanapp"
     },

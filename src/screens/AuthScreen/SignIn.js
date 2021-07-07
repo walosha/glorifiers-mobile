@@ -6,13 +6,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import { Block, Text, Button as GaButton, theme } from "galio-framework";
+import { Block, Text, Button, theme } from "galio-framework";
 import Loader from "react-native-modal-loader";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../store/actions";
 import { RESET_SIGNIN_SCREEN } from "../../store/types";
-import { Button, Icon, Input } from "../../components";
+import { Icon, Input } from "../../components";
 import { images, materialTheme } from "../../constants";
 import styles from "./authStyles";
 
@@ -37,95 +38,48 @@ const SignInScreen = ({ navigation }) => {
   }, []);
 
   function onButnPress() {
-    dispatch({ type: "FAKE_LOGIN" });
     signInUser({ email, password }, dispatch);
   }
 
+  function onFingerprintPress(params) {}
+
   return (
     <DismissKeyboard>
-      <Block flex middle>
+      <Block flex>
         <ImageBackground
-          source={{ uri: images.signInImg }}
+          // source={{ uri: images.signInImg }}
           style={styles.imageBackgroundContainer}
           imageStyle={styles.imageBackground}
         >
-          <Block flex middle>
+          <Block style={styles.overlay} flex middle>
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
-                <Block flex={0.4} middle style={styles.socialConnect}>
-                  <Block flex={0.5} middle>
-                    <Text
-                      style={{
-                        fontFamily: "montserrat-regular",
-                        textAlign: "center",
-                      }}
-                      color={materialTheme.COLORS.PRIMARY}
-                      size={24}
-                    >
-                      Sign In
-                    </Text>
-                  </Block>
-
-                  <Block
-                    flex={0.5}
-                    row
-                    middle
-                    space="between"
-                    style={{ marginBottom: 18 }}
-                  >
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="twitter"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.TWITTER}
-                      style={[styles.social]}
-                    />
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="dribbble"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.DRIBBBLE}
-                      style={[styles.social, styles.shadow]}
-                    />
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="facebook"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.FACEBOOK}
-                      style={[styles.social, styles.shadow]}
-                    />
-                  </Block>
-                </Block>
-                <Block flex={0.1} middle>
+                <Block>
                   <Text
                     style={{
                       fontFamily: "montserrat-regular",
-                      textAlign: "center",
+                      fontSize: 25,
+                      fontWeight: "bold",
+                      color: materialTheme.COLORS.PRIMARY,
                     }}
-                    muted
-                    size={24}
-                    color={materialTheme.COLORS.WHITE}
                   >
-                    Welcome and Sign In
+                    LOGIN
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: "montserrat-regular",
+                      color: materialTheme.COLORS.BLACK,
+                    }}
+                    size={17}
+                  >
+                    Securely login to your glorifiers account
                   </Text>
                 </Block>
                 <Block flex={1} middle space="around">
                   <Block center flex={0.9}>
                     <Block space="around">
                       <Block middle style={{ marginBottom: 15 }}>
-                        <Block width={width * 0.8} style={{ marginBottom: 5 }}>
+                        <Block width={width * 0.9} style={{ marginBottom: 5 }}>
                           <Input
                             onSubmitEditing={() => {
                               //secondTextInput.current.focus();
@@ -146,7 +100,7 @@ const SignInScreen = ({ navigation }) => {
                             }
                           />
                         </Block>
-                        <Block width={width * 0.8}>
+                        <Block width={width * 0.9}>
                           <Input
                             ref={secondTextInput}
                             password
@@ -174,23 +128,22 @@ const SignInScreen = ({ navigation }) => {
                               fontFamily: "montserrat-bold",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.PRIMARY}
+                            color={materialTheme.COLORS.ERROR}
                           >
                             {error}
                           </Text>
                         </Block>
                       ) : null}
+                      <Loader
+                        title={`Logging In`}
+                        loading={isLoading}
+                        color="#ff66be"
+                      />
                       <Block center>
-                        <Loader
-                          title={`Logging In`}
-                          loading={isLoading}
-                          color="#ff66be"
-                        />
                         <Button
-                          loading={isLoading}
                           color="primary"
                           round
-                          style={styles.createButton}
+                          style={[styles.createButton, { marginBottom: 10 }]}
                           onPress={onButnPress}
                         >
                           <Text
@@ -202,7 +155,27 @@ const SignInScreen = ({ navigation }) => {
                           </Text>
                         </Button>
                         <TouchableOpacity
+                          onPress={() => navigation.navigate("Register")}
+                          style={{
+                            marginBottom: 10,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: "montserrat-bold",
+                              fontWeight: "bold",
+                            }}
+                            size={17}
+                            color={materialTheme.COLORS.PRIMARY}
+                          >
+                            Dont Have an account? Register
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
                           onPress={() => navigation.navigate("ForgetPassword")}
+                          style={{
+                            marginBottom: 10,
+                          }}
                         >
                           <Text
                             style={{
@@ -212,12 +185,22 @@ const SignInScreen = ({ navigation }) => {
                               textDecorationLine: "underline",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.WHITE}
+                            color={materialTheme.COLORS.BLACK}
                           >
                             Forgot Password?
                           </Text>
                         </TouchableOpacity>
                       </Block>
+                      <TouchableOpacity
+                        onPress={() => onFingerprintPress}
+                        style={{ marginVertical: 10 }}
+                      >
+                        <Block middle>
+                          <Image
+                            source={require("../../assets/images/bioImage.png")}
+                          />
+                        </Block>
+                      </TouchableOpacity>
                     </Block>
                   </Block>
                 </Block>

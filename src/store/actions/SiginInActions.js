@@ -54,7 +54,7 @@ export const uploadProfileImage = async (image, dispatch) => {
 
     dispatch({ type: PROFILE_IMAGE_SUCCESSSFUL, payload: Key });
   } catch (error) {
-    console.log({ error: error.response.data });
+    // console.log({ error: error.response.data });
     // dispatch({ type: PROFILE_IMAGE_FAILED, payload: data.error });
   }
 };

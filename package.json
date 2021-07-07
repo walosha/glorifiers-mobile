@@ -12,7 +12,7 @@
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-community/netinfo": "^5.5.1",
+    "@react-native-community/netinfo": "5.9.6",
     "@react-native-picker/picker": "^1.9.4",
     "@react-navigation/bottom-tabs": "^5.9.2",
     "@react-navigation/compat": "~5.1.25",
@@ -26,6 +26,7 @@
     "expo-font": "~8.3.0",
     "expo-image-picker": "~9.1.1",
     "expo-linear-gradient": "~8.3.0",
+    "expo-local-authentication": "~9.3.0",
     "expo-status-bar": "~1.0.2",
     "galio-framework": "~0.6.3",
     "lottie-react-native": "~2.6.1",
@@ -61,8 +62,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "rn-placeholder": "^3.0.1",
-    "uuid": "^8.3.0",
-    "expo-local-authentication": "~9.3.0"
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

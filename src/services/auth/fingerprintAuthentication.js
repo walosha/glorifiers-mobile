@@ -5,6 +5,7 @@ const options = {
     " A message that is shown alongside the TouchID or FaceID prompt",
   cancelLabel: "Cancel",
 };
+
 export async function isAuthenticated() {
   const isAuthAvailable = await LocalAuthentication.hasHardwareAsync();
   if (isAuthAvailable) {
@@ -12,9 +13,15 @@ export async function isAuthenticated() {
     if (authListAvailable.includes(1)) {
       const isEnrolledAsync = await LocalAuthentication.isEnrolledAsync();
       if (isEnrolledAsync) {
-        const response = await LocalAuthentication.authenticateAsync(options);
-        console.log({ response });
+        const { success } = await LocalAuthentication.authenticateAsync(
+          options
+        );
+        if (success) {
+          return success;
+        }
       }
     }
   }
+
+  return false;
 }

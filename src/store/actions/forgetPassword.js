@@ -17,7 +17,6 @@ export const recoverPassword = async (email, dispatch) => {
 
     dispatch({ type: RESET_PASSWORD_SUCCESSFUL, payload: data });
   } catch ({ response: { data } }) {
-    console.log(data);
     dispatch({ type: RESET_PASSWORD_FAILED, payload: data });
   }
 };

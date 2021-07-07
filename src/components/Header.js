@@ -16,24 +16,23 @@ import { numberWithCommas } from "../helpers";
 import { materialTheme } from "../constants";
 import { getWallet } from "../store/actions";
 import Icon from "./Icon";
+import useNetInfo from "../hooks/netInfo";
 
 const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
 
-const WifiButton = ({ isWhite, style, navigation }) => (
+const WifiButton = ({ isWhite, style, navigation, isConnected }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => {}}>
     <Icon
       size={24}
       family="Feather"
       name="wifi-off"
       color={
-        theme.COLORS[
-          isWhite
-            ? materialTheme.COLORS.SWITCH_ON
-            : materialTheme.COLORS.SWITCH_OFF
-        ]
+        isConnected
+          ? materialTheme.COLORS.WHITE
+          : materialTheme.COLORS.SWITCH_OFF
       }
     />
   </TouchableOpacity>
@@ -63,6 +62,8 @@ const Header = ({
   const { balance } = useSelector(({ homeScreen }) => homeScreen);
   const [state, setState] = useState(1);
 
+  const connectionState = useNetInfo();
+
   useEffect(() => {
     getWallet(dispatch);
   }, [state]);
@@ -79,7 +80,11 @@ const Header = ({
     if (title === "")
       return (
         <Block row>
-          <WifiButton navigation={navigation} isWhite={white} />
+          <WifiButton
+            isConnected={connectionState}
+            navigation={navigation}
+            isWhite={white}
+          />
           <TouchableOpacity onPress={onReloadButtonPress}>
             <ReloadButton navigation={navigation} isWhite={white} />
           </TouchableOpacity>

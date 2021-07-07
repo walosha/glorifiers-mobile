@@ -30,8 +30,8 @@ export default function RecentTransactions() {
   return (
     <View style={styles.actionContainer}>
       <Block style={{ padding: 7, fontFamily: "montserrat-regular" }} middle>
-        <Text size={30} color={materialTheme.COLORS.MUTED}>
-          RecentTransactions
+        <Text size={30} color={materialTheme.COLORS.PRIMARY}>
+          Recent Transactions
         </Text>
       </Block>
       <FlatList

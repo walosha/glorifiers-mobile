@@ -49,6 +49,10 @@ export default Register = ({ navigation }) => {
       return Toast("Password and Confirm password do not match!", "msgType");
     }
 
+    if (!firstName || !lastName || !phoneNumber || !email || !password) {
+      return Toast("Please fill all inputs", "msgType");
+    }
+
     registerUser(
       { firstName, lastName, phoneNumber, password, email },
       dispatch
@@ -59,72 +63,25 @@ export default Register = ({ navigation }) => {
     <DismissKeyboard>
       <ScrollView middle>
         <ImageBackground
-          source={{ uri: images.registerInImg }}
+          // source={{ uri: images.registerInImg }}
           style={styles.imageBackgroundContainer}
           imageStyle={styles.imageBackground}
         >
-          <Block middle>
+          <Block center>
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
-                <Block flex={0.4} middle style={styles.socialConnect}>
-                  <Block
-                    flex={0.5}
-                    row
-                    middle
-                    space="between"
-                    style={{ marginBottom: 5 }}
-                  >
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="twitter"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.TWITTER}
-                      style={[styles.social, styles.shadow]}
-                    />
-
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="dribbble"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.DRIBBBLE}
-                      style={[styles.social, styles.shadow]}
-                    />
-                    <GaButton
-                      round
-                      onlyIcon
-                      shadowless
-                      icon="facebook"
-                      iconFamily="Font-Awesome"
-                      iconColor={theme.COLORS.WHITE}
-                      iconSize={theme.SIZES.BASE * 1.625}
-                      color={materialTheme.COLORS.FACEBOOK}
-                      style={[styles.social, styles.shadow]}
-                    />
-                  </Block>
-                </Block>
-                <Block middle>
+                <Block center flex={1}>
                   <Text
                     style={{
                       fontFamily: "montserrat-regular",
-                      textAlign: "center",
                     }}
                     muted
-                    size={24}
-                    color={materialTheme.COLORS.WHITE}
+                    size={34}
+                    color={materialTheme.COLORS.PRIMARY}
                   >
-                    Register for Glorifiers !
+                    Create Account
                   </Text>
-                </Block>
-                <Block flex={1} middle space="between">
-                  <Block center flex={0.9}>
+                  <Block center>
                     <Block flex>
                       <Block style={{ marginBottom: 15 }} middle>
                         <Block width={width * 0.8} style={{ marginBottom: 5 }}>
@@ -249,17 +206,12 @@ export default Register = ({ navigation }) => {
                           </Text>
                         </Block>
                       ) : null}
-                      <Loader
-                        title={`Creating account:${email}`}
-                        loading={isLoading}
-                        color="#ff66be"
-                      />
-                      <Block flex center>
+                      <Loader loading={isLoading} color="#ff66be" />
+                      <Block center>
                         <GaButton
                           color="primary"
                           round
                           style={styles.createButton}
-                          loading={isLoading}
                           onPress={onButnPress}
                         >
                           <Text
@@ -272,6 +224,7 @@ export default Register = ({ navigation }) => {
                         </GaButton>
                         <TouchableOpacity
                           onPress={() => navigation.navigate("SignIn")}
+                          style={{ marginVertical: 7 }}
                         >
                           <Text
                             style={{
@@ -281,7 +234,7 @@ export default Register = ({ navigation }) => {
                               textDecorationLine: "underline",
                             }}
                             size={14}
-                            color={materialTheme.COLORS.WHITE}
+                            color={materialTheme.COLORS.PRIMARY}
                           >
                             Kindly Sign In Here
                           </Text>

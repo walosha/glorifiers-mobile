@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -10,7 +10,6 @@ import {
   Alert,
   TouchableOpacity,
   FlatList,
-  Switch,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Block, Text, theme } from "galio-framework";
@@ -21,6 +20,8 @@ import { materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import { uploadProfileImage } from "../store/actions";
 import { capitalizeFirstLetter } from "../helpers";
+import BankDetaillModal from "../screens/BankDetailModal";
+import { Switch } from "../components";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -67,6 +68,12 @@ const Profile = ({ navigation }) => {
   const { image } = useSelector(({ signInScreen }) => ({
     image: signInScreen.user.image,
   }));
+
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   useEffect(() => {
     (async () => {
@@ -147,13 +154,6 @@ const Profile = ({ navigation }) => {
                   <Block style={styles.divider} />
                 </Block>
                 <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-                  <Text
-                    size={22}
-                    color={materialTheme.COLORS.PRIMARY}
-                    style={{ textAlign: "center", fontWeight: "bold" }}
-                  >
-                    My Account
-                  </Text>
                   <FlatList
                     style={styles.notificationList}
                     enableEmptySections={true}
@@ -164,25 +164,30 @@ const Profile = ({ navigation }) => {
                     renderItem={({ item }) => {
                       return (
                         <TouchableOpacity
-                          onPress={() =>
+                          onPress={() => {
+                            // Button is equal to Bank and credit card details
+                            item.icon === "credit-card-plus-outline" &&
+                              onOpen();
+
+                            // Button is equal to Logout
                             item.color &&
-                            Alert.alert(
-                              capitalizeFirstLetter(user.firstName),
-                              "Are you sure you want log out?",
-                              [
-                                {
-                                  text: "Cancel",
-                                  onPress: () => {},
-                                  style: "cancel",
-                                },
-                                {
-                                  text: "Logout",
-                                  onPress: () =>
-                                    dispatch({ type: "LOGOUT_USER" }),
-                                },
-                              ]
-                            )
-                          }
+                              Alert.alert(
+                                capitalizeFirstLetter(user.firstName),
+                                "Are you sure you want log out?",
+                                [
+                                  {
+                                    text: "Cancel",
+                                    onPress: () => {},
+                                    style: "cancel",
+                                  },
+                                  {
+                                    text: "Logout",
+                                    onPress: () =>
+                                      dispatch({ type: "LOGOUT_USER" }),
+                                  },
+                                ]
+                              );
+                          }}
                           style={styles.notificationBox}
                         >
                           <Block row middle>
@@ -210,16 +215,6 @@ const Profile = ({ navigation }) => {
                           </Block>
                           {item.icon === "fingerprint" && (
                             <Switch
-                              trackColor={{
-                                false: "#767577",
-                                true: "#767577",
-                              }}
-                              thumbColor={
-                                fingerPrintEnabled
-                                  ? materialTheme.COLORS.PRIMARY
-                                  : "#f4f3f4"
-                              }
-                              ios_backgroundColor="#3e3e3e"
                               onValueChange={(val) =>
                                 setFingerPrintEnabled(val)
                               }
@@ -231,6 +226,7 @@ const Profile = ({ navigation }) => {
                     }}
                   />
                 </Block>
+                <BankDetaillModal modalizeRef={modalizeRef} />
               </Block>
             </Block>
           </ScrollView>

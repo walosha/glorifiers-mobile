@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     padding: 0,
     zIndex: 1,
   },
+  overlay: {
+    // backgroundColor: "rgba(255, 255, 255, 0.3)",
+  },
   imageBackground: {
     width: width,
     height: height,
@@ -70,9 +73,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   createButton: {
-    width: width * 0.5,
-    // marginTop: 15,
-    // marginBottom: 40,
+    width: width * 0.4,
   },
   social: {
     width: theme.SIZES.BASE * 3.5,

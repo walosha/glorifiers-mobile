@@ -22,7 +22,7 @@ function Pay({ params: { amount }, navigation }) {
         fontSize: 18,
       }}
       showPayButton={true}
-      paystackKey="pk_test_844e11c5109c2aa907273a04855f8bd3b41312ff"
+      paystackKey="pk_live_15bedf928201219e39027b18fe294ecc3dc98e11"
       amount={parseFloat(amount).toFixed(2)}
       billingEmail={email}
       billingMobile={phoneNumber}
@@ -32,14 +32,14 @@ function Pay({ params: { amount }, navigation }) {
       SafeAreaViewContainer={{ marginTop: 5 }}
       SafeAreaViewContainerModal={{ marginTop: 5 }}
       onCancel={(e) => {
-        console.log({ onCancel: e });
-        navigation.navigate("TransferConfirmation");
+        // console.log({ onCancel: e });
+        navigation.navigate("FundPurse");
       }}
       onSuccess={async (res) => {
         try {
           await navigation.navigate("Tab");
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }}
       autoStart={true}

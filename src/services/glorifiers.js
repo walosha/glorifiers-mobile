@@ -1,6 +1,5 @@
 /* eslint-disable dot-notation */
 import axios from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
 
 export const IS_PROD = process.env.NODE_ENV === "production";
 
